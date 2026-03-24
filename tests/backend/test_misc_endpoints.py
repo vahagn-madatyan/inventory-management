@@ -219,6 +219,66 @@ class TestSpendingEndpoints:
             assert isinstance(transaction, dict)
 
 
+class TestPurchaseOrderEndpoints:
+    """Test suite for purchase order endpoints."""
+
+    def test_get_purchase_orders(self, client):
+        """Test getting all purchase orders."""
+        response = client.get("/api/purchase-orders")
+        assert response.status_code == 200
+
+        data = response.json()
+        assert isinstance(data, list)
+        assert len(data) > 0
+
+    def test_purchase_order_structure(self, client):
+        """Test that purchase orders have required fields."""
+        response = client.get("/api/purchase-orders")
+        data = response.json()
+
+        required_fields = ["id", "supplier_name", "quantity", "unit_cost",
+                           "expected_delivery_date", "status", "created_date"]
+
+        for po in data:
+            for field in required_fields:
+                assert field in po, f"Missing {field} in purchase order {po.get('id')}"
+
+    def test_purchase_orders_have_item_info(self, client):
+        """Test that purchase orders include item SKU and name."""
+        response = client.get("/api/purchase-orders")
+        data = response.json()
+
+        for po in data:
+            assert "item_sku" in po
+            assert "item_name" in po
+            assert po["item_sku"] is not None
+            assert po["item_name"] is not None
+
+    def test_purchase_orders_cover_backlog_items(self, client):
+        """Test that all backlog items have corresponding purchase orders."""
+        backlog_response = client.get("/api/backlog")
+        backlog_data = backlog_response.json()
+
+        po_response = client.get("/api/purchase-orders")
+        po_data = po_response.json()
+
+        backlog_skus = {item["item_sku"] for item in backlog_data}
+        po_skus = {po["item_sku"] for po in po_data}
+
+        for sku in backlog_skus:
+            assert sku in po_skus, f"Backlog item {sku} has no purchase order"
+
+    def test_purchase_order_valid_statuses(self, client):
+        """Test that purchase orders have valid status values."""
+        response = client.get("/api/purchase-orders")
+        data = response.json()
+
+        valid_statuses = ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"]
+        for po in data:
+            assert po["status"] in valid_statuses, \
+                f"Invalid PO status: {po['status']}"
+
+
 class TestRootEndpoint:
     """Test suite for root endpoint."""
 
