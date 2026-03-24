@@ -1,32 +1,38 @@
 <template>
   <div class="restocking">
     <div class="page-header">
-      <h2>{{ t('restocking.title') }}</h2>
-      <p>{{ t('restocking.description') }}</p>
+      <h2>{{ t("restocking.title") }}</h2>
+      <p>{{ t("restocking.description") }}</p>
     </div>
 
-    <div v-if="loading" class="loading">{{ t('common.loading') }}</div>
+    <div v-if="loading" class="loading">{{ t("common.loading") }}</div>
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else-if="submitted && submittedOrder" class="success-container">
       <div class="card success-card">
         <div class="success-icon">&#10003;</div>
-        <h3 class="success-title">{{ t('restocking.orderSuccess') }}</h3>
+        <h3 class="success-title">{{ t("restocking.orderSuccess") }}</h3>
         <div class="success-details">
           <div class="success-detail">
-            <span class="detail-label">{{ t('restocking.orderNumber') }}</span>
+            <span class="detail-label">{{ t("restocking.orderNumber") }}</span>
             <span class="detail-value">{{ submittedOrder.order_number }}</span>
           </div>
           <div class="success-detail">
-            <span class="detail-label">{{ t('restocking.expectedDelivery') }}</span>
-            <span class="detail-value">{{ formatDate(submittedOrder.expected_delivery) }}</span>
+            <span class="detail-label">{{
+              t("restocking.expectedDelivery")
+            }}</span>
+            <span class="detail-value">{{
+              formatDate(submittedOrder.expected_delivery)
+            }}</span>
           </div>
           <div class="success-detail">
-            <span class="detail-label">{{ t('restocking.orderTotal') }}</span>
-            <span class="detail-value">{{ formatCurrency(submittedOrder.total_cost, currentCurrency) }}</span>
+            <span class="detail-label">{{ t("restocking.orderTotal") }}</span>
+            <span class="detail-value">{{
+              formatCurrency(submittedOrder.total_cost, currentCurrency)
+            }}</span>
           </div>
         </div>
         <button class="btn btn-primary" @click="resetForm">
-          {{ t('restocking.placeAnother') }}
+          {{ t("restocking.placeAnother") }}
         </button>
       </div>
     </div>
@@ -34,10 +40,12 @@
       <!-- Budget Control -->
       <div class="card budget-card">
         <div class="card-header">
-          <h3 class="card-title">{{ t('restocking.budgetControl') }}</h3>
-          <span class="budget-display">{{ formatCurrency(budget, currentCurrency) }}</span>
+          <h3 class="card-title">{{ t("restocking.budgetControl") }}</h3>
+          <span class="budget-display">{{
+            formatCurrency(budget, currentCurrency)
+          }}</span>
         </div>
-        <p class="budget-description">{{ t('restocking.setBudget') }}</p>
+        <p class="budget-description">{{ t("restocking.setBudget") }}</p>
         <div class="budget-controls">
           <input
             type="range"
@@ -63,46 +71,58 @@
       <!-- Stats Grid -->
       <div class="stats-grid">
         <div class="stat-card info">
-          <div class="stat-label">{{ t('restocking.recommendedItems') }}</div>
+          <div class="stat-label">{{ t("restocking.recommendedItems") }}</div>
           <div class="stat-value">{{ recommendations.length }}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">{{ t('restocking.selectedItems') }}</div>
+          <div class="stat-label">{{ t("restocking.selectedItems") }}</div>
           <div class="stat-value">{{ selectedList.length }}</div>
         </div>
         <div class="stat-card warning">
-          <div class="stat-label">{{ t('restocking.estimatedCost') }}</div>
-          <div class="stat-value">{{ formatCurrency(runningTotal, currentCurrency) }}</div>
+          <div class="stat-label">{{ t("restocking.estimatedCost") }}</div>
+          <div class="stat-value">
+            {{ formatCurrency(runningTotal, currentCurrency) }}
+          </div>
         </div>
         <div :class="['stat-card', isOverBudget ? 'danger' : 'success']">
-          <div class="stat-label">{{ t('restocking.budgetRemaining') }}</div>
-          <div class="stat-value">{{ formatCurrency(budgetRemaining, currentCurrency) }}</div>
+          <div class="stat-label">{{ t("restocking.budgetRemaining") }}</div>
+          <div class="stat-value">
+            {{ formatCurrency(budgetRemaining, currentCurrency) }}
+          </div>
         </div>
       </div>
 
       <!-- Recommendations Table -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">{{ t('restocking.recommendedItems') }} ({{ recommendations.length }})</h3>
+          <h3 class="card-title">
+            {{ t("restocking.recommendedItems") }} ({{
+              recommendations.length
+            }})
+          </h3>
           <div class="table-actions">
-            <button class="btn btn-sm btn-outline" @click="selectAll">{{ t('restocking.selectAll') }}</button>
-            <button class="btn btn-sm btn-outline" @click="deselectAll">{{ t('restocking.deselectAll') }}</button>
+            <button class="btn btn-sm btn-outline" @click="selectAll">
+              {{ t("restocking.selectAll") }}
+            </button>
+            <button class="btn btn-sm btn-outline" @click="deselectAll">
+              {{ t("restocking.deselectAll") }}
+            </button>
           </div>
         </div>
         <div v-if="recommendations.length === 0" class="empty-state">
-          {{ t('restocking.noRecommendations') }}
+          {{ t("restocking.noRecommendations") }}
         </div>
         <div v-else class="table-container">
           <table>
             <thead>
               <tr>
-                <th>{{ t('restocking.table.select') }}</th>
-                <th>{{ t('restocking.table.name') }}</th>
-                <th>{{ t('restocking.table.sku') }}</th>
-                <th>{{ t('restocking.table.source') }}</th>
-                <th>{{ t('restocking.table.quantity') }}</th>
-                <th>{{ t('restocking.table.unitCost') }}</th>
-                <th>{{ t('restocking.table.lineTotal') }}</th>
+                <th>{{ t("restocking.table.select") }}</th>
+                <th>{{ t("restocking.table.name") }}</th>
+                <th>{{ t("restocking.table.sku") }}</th>
+                <th>{{ t("restocking.table.source") }}</th>
+                <th>{{ t("restocking.table.quantity") }}</th>
+                <th>{{ t("restocking.table.unitCost") }}</th>
+                <th>{{ t("restocking.table.lineTotal") }}</th>
               </tr>
             </thead>
             <tbody>
@@ -116,10 +136,12 @@
                   />
                 </td>
                 <td>{{ translateProductName(rec.name) }}</td>
-                <td><strong>{{ rec.sku }}</strong></td>
+                <td>
+                  <strong>{{ rec.sku }}</strong>
+                </td>
                 <td>
                   <span :class="['badge', getSourceClass(rec.source)]">
-                    {{ t('restocking.sources.' + rec.source) }}
+                    {{ t("restocking.sources." + rec.source) }}
                   </span>
                 </td>
                 <td>
@@ -134,7 +156,9 @@
                 </td>
                 <td>{{ formatCurrency(rec.unit_cost, currentCurrency) }}</td>
                 <td>
-                  <strong>{{ formatCurrency(getLineTotal(rec), currentCurrency) }}</strong>
+                  <strong>{{
+                    formatCurrency(getLineTotal(rec), currentCurrency)
+                  }}</strong>
                 </td>
               </tr>
             </tbody>
@@ -145,9 +169,10 @@
       <!-- Budget Progress Bar -->
       <div class="card progress-card">
         <div class="progress-header">
-          <span class="progress-label">{{ t('restocking.budget') }}</span>
+          <span class="progress-label">{{ t("restocking.budget") }}</span>
           <span :class="['progress-value', { 'over-budget': isOverBudget }]">
-            {{ formatCurrency(runningTotal, currentCurrency) }} / {{ formatCurrency(budget, currentCurrency) }}
+            {{ formatCurrency(runningTotal, currentCurrency) }} /
+            {{ formatCurrency(budget, currentCurrency) }}
           </span>
         </div>
         <div class="progress-bar-track">
@@ -158,7 +183,8 @@
           ></div>
         </div>
         <div v-if="isOverBudget" class="over-budget-warning">
-          {{ t('restocking.overBudget') }}: {{ formatCurrency(Math.abs(budgetRemaining), currentCurrency) }}
+          {{ t("restocking.overBudget") }}:
+          {{ formatCurrency(Math.abs(budgetRemaining), currentCurrency) }}
         </div>
       </div>
 
@@ -166,16 +192,21 @@
       <div class="order-footer">
         <div class="footer-summary">
           <span class="footer-total">
-            {{ formatCurrency(runningTotal, currentCurrency) }} / {{ formatCurrency(budget, currentCurrency) }}
+            {{ formatCurrency(runningTotal, currentCurrency) }} /
+            {{ formatCurrency(budget, currentCurrency) }}
           </span>
-          <span v-if="isOverBudget" class="footer-warning">{{ t('restocking.overBudget') }}</span>
+          <span v-if="isOverBudget" class="footer-warning">{{
+            t("restocking.overBudget")
+          }}</span>
         </div>
         <button
           class="btn btn-primary btn-lg"
           :disabled="!canSubmit"
           @click="submitOrder"
         >
-          {{ submitting ? t('restocking.submitting') : t('restocking.placeOrder') }}
+          {{
+            submitting ? t("restocking.submitting") : t("restocking.placeOrder")
+          }}
         </button>
       </div>
     </div>
@@ -183,133 +214,151 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from 'vue'
-import { api } from '../api'
-import { formatCurrency } from '../utils/currency'
-import { useI18n } from '../composables/useI18n'
+import { ref, reactive, computed, onMounted } from "vue";
+import { api } from "../api";
+import { formatCurrency } from "../utils/currency";
+import { useI18n } from "../composables/useI18n";
 
 export default {
-  name: 'Restocking',
+  name: "Restocking",
   setup() {
-    const { t, currentCurrency, translateProductName } = useI18n()
+    const { t, currentCurrency, translateProductName } = useI18n();
 
-    const budget = ref(10000)
-    const recommendations = ref([])
-    const selectedItems = reactive({})
-    const loading = ref(true)
-    const error = ref(null)
-    const submitting = ref(false)
-    const submitted = ref(false)
-    const submittedOrder = ref(null)
+    const budget = ref(10000);
+    const recommendations = ref([]);
+    const selectedItems = reactive({});
+    const loading = ref(true);
+    const error = ref(null);
+    const submitting = ref(false);
+    const submitted = ref(false);
+    const submittedOrder = ref(null);
 
     // Helpers
-    const round = (n) => Math.round(n * 100) / 100
+    const round = (n) => Math.round(n * 100) / 100;
 
     const getLineTotal = (rec) => {
       if (selectedItems[rec.sku]?.selected) {
-        return round(selectedItems[rec.sku].quantity * rec.unit_cost)
+        return round(selectedItems[rec.sku].quantity * rec.unit_cost);
       }
-      return 0
-    }
+      return 0;
+    };
 
     // Computed
     const selectedList = computed(() => {
       return recommendations.value
-        .filter(rec => selectedItems[rec.sku]?.selected)
-        .map(rec => ({
+        .filter((rec) => selectedItems[rec.sku]?.selected)
+        .map((rec) => ({
           ...rec,
           quantity: selectedItems[rec.sku].quantity,
-          line_total: round(selectedItems[rec.sku].quantity * rec.unit_cost)
-        }))
-    })
+          line_total: round(selectedItems[rec.sku].quantity * rec.unit_cost),
+        }));
+    });
 
-    const runningTotal = computed(() => selectedList.value.reduce((sum, item) => sum + item.line_total, 0))
-    const budgetRemaining = computed(() => budget.value - runningTotal.value)
-    const isOverBudget = computed(() => runningTotal.value > budget.value)
-    const canSubmit = computed(() => selectedList.value.length > 0 && !isOverBudget.value && !submitting.value)
-    const spendRatio = computed(() => budget.value > 0 ? (runningTotal.value / budget.value) * 100 : 0)
+    const runningTotal = computed(() =>
+      selectedList.value.reduce((sum, item) => sum + item.line_total, 0),
+    );
+    const budgetRemaining = computed(() => budget.value - runningTotal.value);
+    const isOverBudget = computed(() => runningTotal.value > budget.value);
+    const canSubmit = computed(
+      () =>
+        selectedList.value.length > 0 &&
+        !isOverBudget.value &&
+        !submitting.value,
+    );
+    const spendRatio = computed(() =>
+      budget.value > 0 ? (runningTotal.value / budget.value) * 100 : 0,
+    );
 
     const progressBarClass = computed(() => {
-      if (spendRatio.value > 100) return 'bar-danger'
-      if (spendRatio.value >= 80) return 'bar-warning'
-      return 'bar-success'
-    })
+      if (spendRatio.value > 100) return "bar-danger";
+      if (spendRatio.value >= 80) return "bar-warning";
+      return "bar-success";
+    });
 
     // Methods
     const updateQuantity = (sku, newQty) => {
       if (selectedItems[sku]) {
-        selectedItems[sku].quantity = Math.max(1, parseInt(newQty) || 1)
+        selectedItems[sku].quantity = Math.max(1, parseInt(newQty) || 1);
       }
-    }
+    };
 
     const toggleItem = (sku) => {
       if (selectedItems[sku]) {
-        selectedItems[sku].selected = !selectedItems[sku].selected
+        selectedItems[sku].selected = !selectedItems[sku].selected;
       }
-    }
+    };
 
     const selectAll = () => {
-      Object.keys(selectedItems).forEach(sku => { selectedItems[sku].selected = true })
-    }
+      Object.keys(selectedItems).forEach((sku) => {
+        selectedItems[sku].selected = true;
+      });
+    };
 
     const deselectAll = () => {
-      Object.keys(selectedItems).forEach(sku => { selectedItems[sku].selected = false })
-    }
+      Object.keys(selectedItems).forEach((sku) => {
+        selectedItems[sku].selected = false;
+      });
+    };
 
     const resetForm = () => {
-      submitted.value = false
-      submittedOrder.value = null
-      loadRecommendations()
-    }
+      submitted.value = false;
+      submittedOrder.value = null;
+      loadRecommendations();
+    };
 
     const getSourceClass = (source) => {
-      return { demand: 'info', low_stock: 'danger', both: 'warning' }[source] || 'info'
-    }
+      return (
+        { demand: "info", low_stock: "danger", both: "warning" }[source] ||
+        "info"
+      );
+    };
 
     const formatDate = (dateString) => {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric', month: 'short', day: 'numeric'
-      })
-    }
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    };
 
     // Data loading
     const loadRecommendations = async () => {
       try {
-        loading.value = true
-        error.value = null
-        recommendations.value = await api.getRestockingRecommendations()
+        loading.value = true;
+        error.value = null;
+        recommendations.value = await api.getRestockingRecommendations();
         // Clear previous selections
-        Object.keys(selectedItems).forEach(key => delete selectedItems[key])
+        Object.keys(selectedItems).forEach((key) => delete selectedItems[key]);
         // Auto-select all items
-        recommendations.value.forEach(rec => {
-          selectedItems[rec.sku] = { selected: true, quantity: rec.quantity }
-        })
+        recommendations.value.forEach((rec) => {
+          selectedItems[rec.sku] = { selected: true, quantity: rec.quantity };
+        });
       } catch (err) {
-        error.value = 'Failed to load recommendations: ' + err.message
+        error.value = "Failed to load recommendations: " + err.message;
       } finally {
-        loading.value = false
+        loading.value = false;
       }
-    }
+    };
 
     // Submit
     const submitOrder = async () => {
       try {
-        submitting.value = true
+        submitting.value = true;
         const orderData = {
           items: selectedList.value,
           total_cost: round(runningTotal.value),
-          budget: budget.value
-        }
-        submittedOrder.value = await api.submitRestockingOrder(orderData)
-        submitted.value = true
+          budget: budget.value,
+        };
+        submittedOrder.value = await api.submitRestockingOrder(orderData);
+        submitted.value = true;
       } catch (err) {
-        error.value = 'Failed to submit order: ' + err.message
+        error.value = "Failed to submit order: " + err.message;
       } finally {
-        submitting.value = false
+        submitting.value = false;
       }
-    }
+    };
 
-    onMounted(loadRecommendations)
+    onMounted(loadRecommendations);
 
     return {
       t,
@@ -339,10 +388,10 @@ export default {
       resetForm,
       getSourceClass,
       formatDate,
-      submitOrder
-    }
-  }
-}
+      submitOrder,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -574,7 +623,9 @@ export default {
 .progress-bar-fill {
   height: 100%;
   border-radius: 5px;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .bar-success {

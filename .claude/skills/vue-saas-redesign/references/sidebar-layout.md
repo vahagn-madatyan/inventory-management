@@ -22,24 +22,26 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from '@/components/ui/sidebar'
-import AppSidebar from '@/components/AppSidebar.vue'
-import { Separator } from '@/components/ui/separator'
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+} from "@/components/ui/sidebar";
+import AppSidebar from "@/components/AppSidebar.vue";
+import { Separator } from "@/components/ui/separator";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
-const route = useRoute()
+const route = useRoute();
 
 const pageTitle = computed(() => {
-  return route.meta?.title as string || route.name as string || ''
-})
+  return (route.meta?.title as string) || (route.name as string) || "";
+});
 </script>
 
 <template>
   <SidebarProvider>
     <AppSidebar />
     <SidebarInset>
-      <header class="flex h-14 shrink-0 items-center gap-2 border-b bg-background px-6">
+      <header
+        class="flex h-14 shrink-0 items-center gap-2 border-b bg-background px-6"
+      >
         <SidebarTrigger class="-ml-2 h-8 w-8" />
         <Separator orientation="vertical" class="mr-2 h-4" />
         <h1 class="text-sm font-medium">{{ pageTitle }}</h1>
@@ -81,43 +83,47 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@/components/ui/sidebar'
+} from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { mainNavItems, secondaryNavItems, type NavItem } from '@/config/navigation'
-import { useRoute, useRouter } from 'vue-router'
-import { computed } from 'vue'
+} from "@/components/ui/collapsible";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import {
+  mainNavItems,
+  secondaryNavItems,
+  type NavItem,
+} from "@/config/navigation";
+import { useRoute, useRouter } from "vue-router";
+import { computed } from "vue";
 import {
   ChevronRight,
   ChevronsUpDown,
   LogOut,
   Settings,
   User,
-} from 'lucide-vue-next'
+} from "lucide-vue-next";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 function isActive(item: NavItem): boolean {
-  if (route.path === item.path) return true
-  if (item.children?.some(child => route.path === child.path)) return true
-  return false
+  if (route.path === item.path) return true;
+  if (item.children?.some((child) => route.path === child.path)) return true;
+  return false;
 }
 
 function navigate(path: string) {
-  router.push(path)
+  router.push(path);
 }
 </script>
 
@@ -129,13 +135,17 @@ function navigate(path: string) {
         <SidebarMenuItem>
           <SidebarMenuButton size="lg" as-child>
             <router-link to="/">
-              <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <div
+                class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+              >
                 <!-- Replace with your app icon/logo -->
                 <span class="text-sm font-bold">A</span>
               </div>
               <div class="grid flex-1 text-left text-sm leading-tight">
                 <span class="truncate font-semibold">App Name</span>
-                <span class="truncate text-xs text-sidebar-foreground/60">Workspace</span>
+                <span class="truncate text-xs text-sidebar-foreground/60"
+                  >Workspace</span
+                >
               </div>
             </router-link>
           </SidebarMenuButton>
@@ -161,18 +171,27 @@ function navigate(path: string) {
                     <SidebarMenuButton :tooltip="item.title">
                       <component :is="item.icon" class="size-4" />
                       <span>{{ item.title }}</span>
-                      <ChevronRight class="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                      <ChevronRight
+                        class="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
+                      />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      <SidebarMenuSubItem v-for="child in item.children" :key="child.path">
+                      <SidebarMenuSubItem
+                        v-for="child in item.children"
+                        :key="child.path"
+                      >
                         <SidebarMenuSubButton
                           :is-active="route.path === child.path"
                           @click="navigate(child.path)"
                         >
                           <span>{{ child.title }}</span>
-                          <Badge v-if="child.badge" variant="secondary" class="ml-auto text-xs">
+                          <Badge
+                            v-if="child.badge"
+                            variant="secondary"
+                            class="ml-auto text-xs"
+                          >
                             {{ child.badge }}
                           </Badge>
                         </SidebarMenuSubButton>
@@ -191,7 +210,11 @@ function navigate(path: string) {
                 >
                   <component :is="item.icon" class="size-4" />
                   <span>{{ item.title }}</span>
-                  <Badge v-if="item.badge" variant="secondary" class="ml-auto text-xs">
+                  <Badge
+                    v-if="item.badge"
+                    variant="secondary"
+                    class="ml-auto text-xs"
+                  >
                     {{ item.badge }}
                   </Badge>
                 </SidebarMenuButton>
@@ -227,7 +250,10 @@ function navigate(path: string) {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
-              <SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+              <SidebarMenuButton
+                size="lg"
+                class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
                 <Avatar class="h-8 w-8 rounded-lg">
                   <AvatarImage src="/avatar.jpg" alt="User" />
                   <AvatarFallback class="rounded-lg">U</AvatarFallback>
@@ -274,8 +300,8 @@ function navigate(path: string) {
 `src/config/navigation.ts` — Derive nav items from vue-router config.
 
 ```typescript
-import type { Component } from 'vue'
-import { routes } from '@/router'
+import type { Component } from "vue";
+import { routes } from "@/router";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -287,14 +313,14 @@ import {
   Mail,
   Bell,
   Shield,
-} from 'lucide-vue-next'
+} from "lucide-vue-next";
 
 export interface NavItem {
-  title: string
-  path: string
-  icon: Component
-  badge?: string | number
-  children?: NavItem[]
+  title: string;
+  path: string;
+  icon: Component;
+  badge?: string | number;
+  children?: NavItem[];
 }
 
 // Map icon names (from route meta) to actual components
@@ -309,7 +335,7 @@ const iconMap: Record<string, Component> = {
   Mail,
   Bell,
   Shield,
-}
+};
 
 /**
  * Build nav items from route records.
@@ -321,49 +347,49 @@ const iconMap: Record<string, Component> = {
  * Nested route children become sub-items automatically.
  */
 function buildNavItems(routeRecords: typeof routes, group: string): NavItem[] {
-  const items: NavItem[] = []
+  const items: NavItem[] = [];
 
   for (const route of routeRecords) {
-    const meta = route.meta as Record<string, any> | undefined
-    if (!meta?.nav || meta.navGroup !== group) continue
+    const meta = route.meta as Record<string, any> | undefined;
+    if (!meta?.nav || meta.navGroup !== group) continue;
 
     const item: NavItem = {
-      title: meta.title || route.name as string || route.path,
+      title: meta.title || (route.name as string) || route.path,
       path: route.path,
       icon: iconMap[meta.icon] || LayoutDashboard,
       badge: meta.badge,
-    }
+    };
 
     // Build children from nested routes
     if (route.children?.length) {
       const childItems = route.children
-        .filter(child => {
-          const childMeta = child.meta as Record<string, any> | undefined
-          return childMeta?.nav !== false && child.path !== ''
+        .filter((child) => {
+          const childMeta = child.meta as Record<string, any> | undefined;
+          return childMeta?.nav !== false && child.path !== "";
         })
-        .map(child => {
-          const childMeta = child.meta as Record<string, any> | undefined
+        .map((child) => {
+          const childMeta = child.meta as Record<string, any> | undefined;
           return {
-            title: childMeta?.title || child.name as string || child.path,
-            path: `${route.path}/${child.path}`.replace(/\/+/g, '/'),
-            icon: iconMap[childMeta?.icon || ''] || LayoutDashboard,
+            title: childMeta?.title || (child.name as string) || child.path,
+            path: `${route.path}/${child.path}`.replace(/\/+/g, "/"),
+            icon: iconMap[childMeta?.icon || ""] || LayoutDashboard,
             badge: childMeta?.badge,
-          }
-        })
+          };
+        });
 
       if (childItems.length) {
-        item.children = childItems
+        item.children = childItems;
       }
     }
 
-    items.push(item)
+    items.push(item);
   }
 
-  return items
+  return items;
 }
 
-export const mainNavItems = buildNavItems(routes, 'main')
-export const secondaryNavItems = buildNavItems(routes, 'secondary')
+export const mainNavItems = buildNavItems(routes, "main");
+export const secondaryNavItems = buildNavItems(routes, "secondary");
 ```
 
 ### Route meta convention
@@ -374,66 +400,66 @@ Add meta to your routes to control sidebar rendering:
 // src/router/index.ts
 const routes = [
   {
-    path: '/',
-    component: () => import('@/layouts/AppLayout.vue'),
+    path: "/",
+    component: () => import("@/layouts/AppLayout.vue"),
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/Dashboard.vue'),
+        path: "dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/Dashboard.vue"),
         meta: {
           nav: true,
-          navGroup: 'main',
-          title: 'Dashboard',
-          icon: 'LayoutDashboard',
+          navGroup: "main",
+          title: "Dashboard",
+          icon: "LayoutDashboard",
         },
       },
       {
-        path: 'projects',
-        name: 'Projects',
-        component: () => import('@/views/Projects.vue'),
+        path: "projects",
+        name: "Projects",
+        component: () => import("@/views/Projects.vue"),
         meta: {
           nav: true,
-          navGroup: 'main',
-          title: 'Projects',
-          icon: 'FolderKanban',
+          navGroup: "main",
+          title: "Projects",
+          icon: "FolderKanban",
           badge: 3, // Shows count badge
         },
         children: [
           {
-            path: 'active',
-            name: 'ActiveProjects',
-            component: () => import('@/views/projects/Active.vue'),
-            meta: { nav: true, title: 'Active' },
+            path: "active",
+            name: "ActiveProjects",
+            component: () => import("@/views/projects/Active.vue"),
+            meta: { nav: true, title: "Active" },
           },
           {
-            path: 'archived',
-            name: 'ArchivedProjects',
-            component: () => import('@/views/projects/Archived.vue'),
-            meta: { nav: true, title: 'Archived' },
+            path: "archived",
+            name: "ArchivedProjects",
+            component: () => import("@/views/projects/Archived.vue"),
+            meta: { nav: true, title: "Archived" },
           },
         ],
       },
       {
-        path: 'settings',
-        name: 'Settings',
-        component: () => import('@/views/Settings.vue'),
+        path: "settings",
+        name: "Settings",
+        component: () => import("@/views/Settings.vue"),
         meta: {
           nav: true,
-          navGroup: 'secondary',
-          title: 'Settings',
-          icon: 'Settings',
+          navGroup: "secondary",
+          title: "Settings",
+          icon: "Settings",
         },
       },
     ],
   },
   // Auth routes — outside the layout, no sidebar
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/auth/Login.vue'),
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/auth/Login.vue"),
   },
-]
+];
 ```
 
 ---
@@ -445,11 +471,11 @@ const routes = [
 ```typescript
 // Old: flat routes, no layout wrapper
 const routes = [
-  { path: '/dashboard', component: Dashboard },
-  { path: '/projects', component: Projects },
-  { path: '/settings', component: Settings },
-  { path: '/login', component: Login },
-]
+  { path: "/dashboard", component: Dashboard },
+  { path: "/projects", component: Projects },
+  { path: "/settings", component: Settings },
+  { path: "/login", component: Login },
+];
 ```
 
 ### After (layout-wrapped)

@@ -29,8 +29,8 @@ Before/after patterns for transforming common Vue components into shadcn-vue equ
 
 ```vue
 <script setup>
-import { Button } from '@/components/ui/button'
-import { Save, Trash2, ExternalLink } from 'lucide-vue-next'
+import { Button } from "@/components/ui/button";
+import { Save, Trash2, ExternalLink } from "lucide-vue-next";
 </script>
 
 <template>
@@ -55,14 +55,14 @@ import { Save, Trash2, ExternalLink } from 'lucide-vue-next'
 
 ### Button variants cheat sheet
 
-| Variant | Use case |
-|---------|----------|
-| `default` | Primary actions (Save, Create, Submit) |
-| `secondary` | Less prominent actions |
-| `outline` | Cancel, secondary choices |
-| `ghost` | Toolbar buttons, inline actions |
-| `destructive` | Delete, Remove, Revoke |
-| `link` | Inline text links that look like buttons |
+| Variant       | Use case                                 |
+| ------------- | ---------------------------------------- |
+| `default`     | Primary actions (Save, Create, Submit)   |
+| `secondary`   | Less prominent actions                   |
+| `outline`     | Cancel, secondary choices                |
+| `ghost`       | Toolbar buttons, inline actions          |
+| `destructive` | Delete, Remove, Revoke                   |
+| `link`        | Inline text links that look like buttons |
 
 ---
 
@@ -85,14 +85,22 @@ import { Save, Trash2, ExternalLink } from 'lucide-vue-next'
 
 ```vue
 <script setup>
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 </script>
 
 <template>
   <Card>
     <CardHeader>
       <CardTitle>Users</CardTitle>
-      <CardDescription>Manage your team members and their roles</CardDescription>
+      <CardDescription
+        >Manage your team members and their roles</CardDescription
+      >
     </CardHeader>
     <CardContent>
       <!-- content -->
@@ -157,9 +165,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 </script>
 
 <template>
@@ -222,20 +230,30 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 ```vue
 <script setup>
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 </script>
 
 <template>
   <form class="space-y-4" @submit.prevent="onSubmit">
     <div class="space-y-2">
       <Label for="name">Name</Label>
-      <Input id="name" v-model="form.name" type="text" placeholder="Enter your name" />
+      <Input
+        id="name"
+        v-model="form.name"
+        type="text"
+        placeholder="Enter your name"
+      />
     </div>
     <div class="space-y-2">
       <Label for="email">Email</Label>
-      <Input id="email" v-model="form.email" type="email" placeholder="name@example.com" />
+      <Input
+        id="email"
+        v-model="form.email"
+        type="email"
+        placeholder="name@example.com"
+      />
       <p class="text-xs text-muted-foreground">We'll never share your email.</p>
     </div>
     <div class="flex justify-end gap-2">
@@ -248,11 +266,11 @@ import { Label } from '@/components/ui/label'
 
 ### Form layout patterns
 
-| Pattern | Use case | Layout |
-|---------|----------|--------|
-| Single column | Simple forms, settings | `space-y-4` |
-| Two column | Profile, address forms | `grid grid-cols-1 md:grid-cols-2 gap-4` |
-| Inline | Search, filters | `flex items-center gap-2` |
+| Pattern       | Use case               | Layout                                  |
+| ------------- | ---------------------- | --------------------------------------- |
+| Single column | Simple forms, settings | `space-y-4`                             |
+| Two column    | Profile, address forms | `grid grid-cols-1 md:grid-cols-2 gap-4` |
+| Inline        | Search, filters        | `flex items-center gap-2`               |
 
 ---
 
@@ -283,8 +301,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 </script>
 
 <template>
@@ -324,12 +342,14 @@ import { Button } from '@/components/ui/button'
 
 ```vue
 <script setup>
-import { Badge } from '@/components/ui/badge'
+import { Badge } from "@/components/ui/badge";
 </script>
 
 <template>
   <!-- Use variants + custom colors via class -->
-  <Badge class="bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20">Active</Badge>
+  <Badge class="bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20"
+    >Active</Badge
+  >
   <Badge variant="secondary" class="text-amber-500">Pending</Badge>
   <Badge variant="destructive">Error</Badge>
 </template>
@@ -352,9 +372,15 @@ Every page in the app should follow this consistent structure:
 
 ```vue
 <script setup>
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-vue-next'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-vue-next";
 </script>
 
 <template>
@@ -376,7 +402,9 @@ import { Plus } from 'lucide-vue-next'
     <!-- Stats row (optional) -->
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card v-for="stat in stats" :key="stat.label">
-        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader
+          class="flex flex-row items-center justify-between space-y-0 pb-2"
+        >
           <CardTitle class="text-sm font-medium">{{ stat.label }}</CardTitle>
           <component :is="stat.icon" class="size-4 text-muted-foreground" />
         </CardHeader>
@@ -391,7 +419,9 @@ import { Plus } from 'lucide-vue-next'
     <Card>
       <CardHeader>
         <CardTitle>All Projects</CardTitle>
-        <CardDescription>A list of all projects in your organization</CardDescription>
+        <CardDescription
+          >A list of all projects in your organization</CardDescription
+        >
       </CardHeader>
       <CardContent>
         <!-- Table, list, or grid content here -->

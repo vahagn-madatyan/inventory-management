@@ -21,7 +21,7 @@
     "period": "Next 30 days",
     "lead_time_days": 7,
     "supplier": "Precision Bearings Co.",
-    "unit_cost": 89.50
+    "unit_cost": 89.5
   },
   {
     "id": "3",
@@ -45,7 +45,7 @@
     "period": "Next 30 days",
     "lead_time_days": 21,
     "supplier": "GlobalMotors Inc.",
-    "unit_cost": 445.00
+    "unit_cost": 445.0
   },
   {
     "id": "5",
@@ -69,7 +69,7 @@
     "period": "Next 30 days",
     "lead_time_days": 12,
     "supplier": "ValveTech Industries",
-    "unit_cost": 156.00
+    "unit_cost": 156.0
   },
   {
     "id": "7",
@@ -93,7 +93,7 @@
     "period": "Next 30 days",
     "lead_time_days": 6,
     "supplier": "SensorWorks Global",
-    "unit_cost": 89.50
+    "unit_cost": 89.5
   },
   {
     "id": "9",

@@ -1,6 +1,6 @@
 ---
 name: vue-saas-redesign
-description: Redesigns a Vue 3 application's UI into a modern SaaS-style interface with a vertical navigation sidebar, consistent spacing, and polished professional design using shadcn-vue and Tailwind CSS. Use this skill whenever the user wants to modernize a Vue app's layout, replace a top navigation bar with a sidebar, apply SaaS dashboard styling, improve UI consistency, add a professional design system, or give their Vue 3 app a polished look. Also applies when users mention "dashboard layout", "admin panel UI", "sidebar navigation", "redesign my Vue app", or want to move from a basic/ugly UI to a production-grade SaaS aesthetic.
+description: Redesigns a Vue 3 application's UI into a modern SaaS-style interface with a vertical navigation sidebar, consistent spacing, and polished professional design using shadcn-vue and Tailwind CSS. Use this skill whenever the user wants to modernize a Vue app's layout, replace a top navigation bar with a sidebar, apply SaaS dashboard styling, improve UI consistency, add a professional design system, or give their Vue 3 app a polished look. Also applies when users mention "dashboard layout", "admin panel UI", "sidebar navigation", "redesign my Vue app", or want to move from a basic/ugly UI to a production-grade SaaS aesthetic. Use it even for partial requests like "make it look more professional" or "clean up the UI" on a Vue 3 app.
 ---
 
 # Vue 3 SaaS UI Redesign
@@ -11,14 +11,29 @@ Transform a Vue 3 application from its current layout into a modern SaaS-style i
 
 Most Vue 3 apps start with a basic top navbar and inconsistent styling. SaaS products universally use a sidebar layout because it scales better with growing navigation, keeps the main content area wide, and looks professional. This skill automates the entire transformation — from layout restructuring to component restyling to testing — so the result is cohesive rather than piecemeal.
 
+Without this skill, Claude tends to build functional sidebar UIs but misses key conventions: proper shadcn-vue component naming (`AppSidebar.vue`, `AppLayout.vue`), design token CSS variables (`--sidebar-*`), router-derived navigation config, and comprehensive e2e test coverage. This skill ensures a consistent, production-grade result every time.
+
 ## Prerequisites
 
 Before starting, verify the project has:
+
 - Vue 3 (Composition API / `<script setup>`)
 - Vite as the build tool
 - vue-router 4.x
 
 If any are missing, stop and tell the user what needs to be added first.
+
+## Important Conventions
+
+These naming and structural conventions are non-negotiable — they ensure consistency across projects and make the output immediately recognizable as a professional SaaS app:
+
+- Layout wrapper: always `src/layouts/AppLayout.vue` (not `SidebarLayout`, `DashboardLayout`, etc.)
+- Sidebar component: always `src/components/AppSidebar.vue` (not `TheSidebar`, `NavigationSidebar`, etc.)
+- Navigation config: always `src/config/navigation.ts` (or `.js`) derived from the router
+- Design tokens: always use `--sidebar-*` CSS variables for sidebar theming
+- Icons: always use `lucide-vue-next` — every nav item must have an icon
+- App.vue: must be stripped to just `<router-view />` after redesign
+- Match the project's language: if the project uses JavaScript, write `.js` files; if TypeScript, write `.ts`
 
 ## Phase 1: Analyze the Existing App
 
@@ -34,6 +49,7 @@ cat src/App.vue
 ```
 
 Identify:
+
 - **Router config location** and all route definitions (path, name, component, children, meta)
 - **Existing navigation** — top navbar component, any drawer/sidebar already present
 - **Layout components** — any wrapper/layout components
@@ -62,6 +78,7 @@ npx shadcn-vue@latest init
 ```
 
 When prompted, choose:
+
 - TypeScript: Yes (if the project uses TS, otherwise No)
 - Framework: Vite
 - Style: Default
@@ -107,6 +124,7 @@ Extend `tailwind.config.js` to map the CSS variables to Tailwind utilities. This
 ### 3.3 Spacing scale
 
 Use Tailwind's default spacing scale consistently:
+
 - **Page padding**: `p-6` (24px)
 - **Card padding**: `p-4` to `p-6`
 - **Between sections**: `space-y-6`
@@ -125,9 +143,13 @@ This is the shell that wraps every authenticated page:
 
 ```vue
 <script setup lang="ts">
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/AppSidebar.vue'
-import { Separator } from '@/components/ui/separator'
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar.vue";
+import { Separator } from "@/components/ui/separator";
 </script>
 
 <template>
@@ -152,11 +174,13 @@ import { Separator } from '@/components/ui/separator'
 The sidebar reads from a navigation config (derived from vue-router) and renders items with icons, labels, badges, and collapsible groups.
 
 Key structure:
+
 - **SidebarHeader** — App logo/name + optional workspace switcher
 - **SidebarContent** — Navigation groups (main nav, secondary nav)
 - **SidebarFooter** — User avatar + dropdown menu (settings, logout)
 
 The sidebar must:
+
 - Be collapsible (icon-only mode) via `collapsible="icon"` prop
 - Highlight the active route using `useRoute()` comparison
 - Support keyboard shortcut (Ctrl/Cmd + B) to toggle
@@ -167,27 +191,27 @@ The sidebar must:
 Generate this from the router config. Don't hardcode nav items separately from routes — that leads to drift.
 
 ```typescript
-import { type RouteRecordRaw } from 'vue-router'
-import { routes } from '@/router'
+import { type RouteRecordRaw } from "vue-router";
+import { routes } from "@/router";
 import {
   LayoutDashboard,
   FolderKanban,
   Users,
   Settings,
   // ... import icons per route
-} from 'lucide-vue-next'
+} from "lucide-vue-next";
 
 export interface NavItem {
-  title: string
-  path: string
-  icon: Component
-  badge?: string | number
-  children?: NavItem[]
+  title: string;
+  path: string;
+  icon: Component;
+  badge?: string | number;
+  children?: NavItem[];
 }
 
 export interface NavGroup {
-  label: string
-  items: NavItem[]
+  label: string;
+  items: NavItem[];
 }
 
 // Map route meta to nav items
@@ -298,43 +322,45 @@ Create `src/layouts/__tests__/AppLayout.test.ts`:
 Create `e2e/sidebar-navigation.spec.ts`:
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from "@playwright/test";
 
-test.describe('Sidebar Navigation', () => {
-  test('sidebar is visible and contains nav items', async ({ page }) => {
-    await page.goto('/')
-    const sidebar = page.locator('[data-sidebar="sidebar"]')
-    await expect(sidebar).toBeVisible()
-  })
+test.describe("Sidebar Navigation", () => {
+  test("sidebar is visible and contains nav items", async ({ page }) => {
+    await page.goto("/");
+    const sidebar = page.locator('[data-sidebar="sidebar"]');
+    await expect(sidebar).toBeVisible();
+  });
 
-  test('clicking nav item navigates to correct route', async ({ page }) => {
-    await page.goto('/')
-    await page.click('text=Dashboard')
-    await expect(page).toHaveURL(/.*dashboard/)
-  })
+  test("clicking nav item navigates to correct route", async ({ page }) => {
+    await page.goto("/");
+    await page.click("text=Dashboard");
+    await expect(page).toHaveURL(/.*dashboard/);
+  });
 
-  test('sidebar collapses and expands', async ({ page }) => {
-    await page.goto('/')
-    const trigger = page.locator('[data-sidebar="trigger"]')
-    await trigger.click()
+  test("sidebar collapses and expands", async ({ page }) => {
+    await page.goto("/");
+    const trigger = page.locator('[data-sidebar="trigger"]');
+    await trigger.click();
     // Verify collapsed state
-    const sidebar = page.locator('[data-sidebar="sidebar"]')
-    await expect(sidebar).toHaveAttribute('data-state', 'collapsed')
-  })
+    const sidebar = page.locator('[data-sidebar="sidebar"]');
+    await expect(sidebar).toHaveAttribute("data-state", "collapsed");
+  });
 
-  test('keyboard shortcut toggles sidebar', async ({ page }) => {
-    await page.goto('/')
-    await page.keyboard.press('Control+b')
-    const sidebar = page.locator('[data-sidebar="sidebar"]')
-    await expect(sidebar).toHaveAttribute('data-state', 'collapsed')
-  })
+  test("keyboard shortcut toggles sidebar", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press("Control+b");
+    const sidebar = page.locator('[data-sidebar="sidebar"]');
+    await expect(sidebar).toHaveAttribute("data-state", "collapsed");
+  });
 
-  test('active route is highlighted in sidebar', async ({ page }) => {
-    await page.goto('/dashboard')
-    const activeItem = page.locator('[data-sidebar="menu-button"][data-active="true"]')
-    await expect(activeItem).toBeVisible()
-  })
-})
+  test("active route is highlighted in sidebar", async ({ page }) => {
+    await page.goto("/dashboard");
+    const activeItem = page.locator(
+      '[data-sidebar="menu-button"][data-active="true"]',
+    );
+    await expect(activeItem).toBeVisible();
+  });
+});
 ```
 
 Create `e2e/responsive-layout.spec.ts`:

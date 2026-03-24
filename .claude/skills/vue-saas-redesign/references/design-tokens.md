@@ -113,31 +113,28 @@ Add these to your main CSS file (e.g., `src/assets/index.css`) inside `@layer ba
 
 The `--sidebar-*` variables scope the sidebar's colors independently from the main content area. This is how SaaS apps achieve the "dark sidebar, light content" pattern.
 
-| Variable | Purpose | Typical value (light theme) |
-|----------|---------|----------------------------|
-| `--sidebar-background` | Sidebar background | Dark zinc (240 5.9% 10%) |
-| `--sidebar-foreground` | Text/icons in sidebar | Light gray (240 4.8% 95.9%) |
-| `--sidebar-primary` | Active item highlight | Brand blue (224.3 76.3% 48%) |
-| `--sidebar-primary-foreground` | Text on active item | White |
-| `--sidebar-accent` | Hover state background | Slightly lighter zinc |
-| `--sidebar-accent-foreground` | Hover state text | Light gray |
-| `--sidebar-border` | Dividers inside sidebar | Subtle dark line |
-| `--sidebar-ring` | Focus ring inside sidebar | Brand blue |
+| Variable                       | Purpose                   | Typical value (light theme)  |
+| ------------------------------ | ------------------------- | ---------------------------- |
+| `--sidebar-background`         | Sidebar background        | Dark zinc (240 5.9% 10%)     |
+| `--sidebar-foreground`         | Text/icons in sidebar     | Light gray (240 4.8% 95.9%)  |
+| `--sidebar-primary`            | Active item highlight     | Brand blue (224.3 76.3% 48%) |
+| `--sidebar-primary-foreground` | Text on active item       | White                        |
+| `--sidebar-accent`             | Hover state background    | Slightly lighter zinc        |
+| `--sidebar-accent-foreground`  | Hover state text          | Light gray                   |
+| `--sidebar-border`             | Dividers inside sidebar   | Subtle dark line             |
+| `--sidebar-ring`               | Focus ring inside sidebar | Brand blue                   |
 
 ## Tailwind Config Extension
 
 In `tailwind.config.js` (or `tailwind.config.ts`):
 
 ```javascript
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -196,23 +193,23 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
 ```
 
 ## Typography Scale
 
 Consistent heading and body text sizing:
 
-| Element | Classes | When to use |
-|---------|---------|-------------|
-| Page title | `text-2xl font-semibold tracking-tight` | Top of each page, one per page |
-| Page subtitle | `text-sm text-muted-foreground` | Below page title |
-| Section heading | `text-xl font-semibold` | Card titles, major sections |
-| Subsection | `text-lg font-medium` | Within cards, form section labels |
-| Body text | `text-sm` | Default content, table cells |
-| Small text | `text-xs text-muted-foreground` | Timestamps, helper text, badges |
-| Sidebar nav item | `text-sm font-medium` | Navigation labels |
-| Sidebar group label | `text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50` | Group headings in sidebar |
+| Element             | Classes                                                                     | When to use                       |
+| ------------------- | --------------------------------------------------------------------------- | --------------------------------- |
+| Page title          | `text-2xl font-semibold tracking-tight`                                     | Top of each page, one per page    |
+| Page subtitle       | `text-sm text-muted-foreground`                                             | Below page title                  |
+| Section heading     | `text-xl font-semibold`                                                     | Card titles, major sections       |
+| Subsection          | `text-lg font-medium`                                                       | Within cards, form section labels |
+| Body text           | `text-sm`                                                                   | Default content, table cells      |
+| Small text          | `text-xs text-muted-foreground`                                             | Timestamps, helper text, badges   |
+| Sidebar nav item    | `text-sm font-medium`                                                       | Navigation labels                 |
+| Sidebar group label | `text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50` | Group headings in sidebar         |
 
 ## Spacing Guidelines
 
@@ -242,15 +239,15 @@ Use Tailwind's spacing scale. Never use arbitrary values.
 
 ### Common spacing patterns
 
-| Context | Spacing class | Pixels |
-|---------|--------------|--------|
-| Page padding | `p-6` | 24px |
-| Between page sections | `space-y-6` | 24px |
-| Card inner padding | `p-4` or `p-6` | 16px or 24px |
-| Between form fields | `space-y-4` | 16px |
-| Between related items | `space-y-2` or `gap-2` | 8px |
-| Button group gap | `gap-2` | 8px |
-| Icon + text gap | `gap-2` | 8px |
-| Table cell padding | `px-4 py-3` | 16px / 12px |
-| Sidebar item padding | `px-3 py-2` | 12px / 8px |
-| Sidebar group gap | `space-y-1` | 4px |
+| Context               | Spacing class          | Pixels       |
+| --------------------- | ---------------------- | ------------ |
+| Page padding          | `p-6`                  | 24px         |
+| Between page sections | `space-y-6`            | 24px         |
+| Card inner padding    | `p-4` or `p-6`         | 16px or 24px |
+| Between form fields   | `space-y-4`            | 16px         |
+| Between related items | `space-y-2` or `gap-2` | 8px          |
+| Button group gap      | `gap-2`                | 8px          |
+| Icon + text gap       | `gap-2`                | 8px          |
+| Table cell padding    | `px-4 py-3`            | 16px / 12px  |
+| Sidebar item padding  | `px-3 py-2`            | 12px / 8px   |
+| Sidebar group gap     | `space-y-1`            | 4px          |
