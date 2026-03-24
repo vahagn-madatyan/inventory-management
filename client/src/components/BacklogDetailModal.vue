@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="max-w-2xl max-h-[90vh] overflow-y-auto">
       <DialogHeader>
@@ -41,7 +45,10 @@
               SKU: {{ backlogItem.item_sku }}
             </div>
           </div>
-          <Badge :variant="priorityVariant" class="flex-shrink-0 uppercase tracking-wide">
+          <Badge
+            :variant="priorityVariant"
+            class="flex-shrink-0 uppercase tracking-wide"
+          >
             {{ backlogItem.priority }} Priority
           </Badge>
         </div>
@@ -50,7 +57,9 @@
         <div class="grid grid-cols-2 gap-4">
           <Card class="border-2 border-red-200 bg-red-50">
             <CardContent class="p-5">
-              <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+              <div
+                class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2"
+              >
                 Shortage Amount
               </div>
               <div class="text-3xl font-bold text-red-600">
@@ -60,7 +69,9 @@
           </Card>
           <Card class="border-2 border-orange-200 bg-amber-50">
             <CardContent class="p-5">
-              <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+              <div
+                class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2"
+              >
                 Days Delayed
               </div>
               <div class="text-3xl font-bold text-amber-500">
@@ -73,7 +84,9 @@
         <!-- Info grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Order ID
             </div>
             <div class="text-sm font-medium font-mono text-blue-600">
@@ -82,7 +95,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Item SKU
             </div>
             <div class="text-sm font-medium font-mono text-blue-600">
@@ -91,7 +106,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Quantity Needed
             </div>
             <div class="text-sm font-medium text-foreground">
@@ -100,7 +117,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Quantity Available
             </div>
             <div class="text-sm font-medium text-foreground">
@@ -109,7 +128,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Expected Date
             </div>
             <div class="text-sm font-medium text-foreground">
@@ -118,7 +139,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <div class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <div
+              class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+            >
               Status
             </div>
             <div>

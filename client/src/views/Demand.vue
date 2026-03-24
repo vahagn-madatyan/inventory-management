@@ -5,10 +5,16 @@
       <p class="text-muted-foreground">{{ t("demand.description") }}</p>
     </div>
 
-    <div v-if="loading" class="flex items-center justify-center py-12 text-muted-foreground">
+    <div
+      v-if="loading"
+      class="flex items-center justify-center py-12 text-muted-foreground"
+    >
       {{ t("common.loading") }}
     </div>
-    <div v-else-if="error" class="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive">
+    <div
+      v-else-if="error"
+      class="rounded-md border border-destructive/50 bg-destructive/10 p-4 text-destructive"
+    >
       {{ error }}
     </div>
     <template v-else>
@@ -17,15 +23,23 @@
         <Card class="border-l-4 border-l-emerald-500">
           <CardHeader class="pb-3">
             <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10"
+              >
                 <TrendingUp class="h-5 w-5 text-emerald-500" />
               </div>
               <div>
-                <CardTitle class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle
+                  class="text-sm font-semibold uppercase tracking-wide text-muted-foreground"
+                >
                   {{ t("demand.increasingDemand") }}
                 </CardTitle>
                 <p class="text-xl font-bold">
-                  {{ t("demand.itemsCount", { count: getForecastsByTrend("increasing").length }) }}
+                  {{
+                    t("demand.itemsCount", {
+                      count: getForecastsByTrend("increasing").length,
+                    })
+                  }}
                 </p>
               </div>
             </div>
@@ -36,7 +50,9 @@
               :key="item.id"
               class="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2 hover:bg-muted"
             >
-              <span class="mr-4 truncate text-sm font-medium">{{ item.item_name }}</span>
+              <span class="mr-4 truncate text-sm font-medium">{{
+                item.item_name
+              }}</span>
               <Badge class="shrink-0 bg-emerald-500/10 text-emerald-600">
                 +{{ getChangePercent(item) }}%
               </Badge>
@@ -45,7 +61,8 @@
               v-if="getForecastsByTrend('increasing').length > 5"
               class="pt-1 text-center text-xs italic text-muted-foreground"
             >
-              +{{ getForecastsByTrend("increasing").length - 5 }} {{ t("demand.more") }}
+              +{{ getForecastsByTrend("increasing").length - 5 }}
+              {{ t("demand.more") }}
             </p>
           </CardContent>
         </Card>
@@ -54,15 +71,23 @@
         <Card class="border-l-4 border-l-blue-500">
           <CardHeader class="pb-3">
             <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10"
+              >
                 <Minus class="h-5 w-5 text-blue-500" />
               </div>
               <div>
-                <CardTitle class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle
+                  class="text-sm font-semibold uppercase tracking-wide text-muted-foreground"
+                >
                   {{ t("demand.stableDemand") }}
                 </CardTitle>
                 <p class="text-xl font-bold">
-                  {{ t("demand.itemsCount", { count: getForecastsByTrend("stable").length }) }}
+                  {{
+                    t("demand.itemsCount", {
+                      count: getForecastsByTrend("stable").length,
+                    })
+                  }}
                 </p>
               </div>
             </div>
@@ -73,7 +98,9 @@
               :key="item.id"
               class="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2 hover:bg-muted"
             >
-              <span class="mr-4 truncate text-sm font-medium">{{ item.item_name }}</span>
+              <span class="mr-4 truncate text-sm font-medium">{{
+                item.item_name
+              }}</span>
               <Badge class="shrink-0 bg-blue-500/10 text-blue-500">
                 {{ getChangePercent(item) }}%
               </Badge>
@@ -82,7 +109,8 @@
               v-if="getForecastsByTrend('stable').length > 5"
               class="pt-1 text-center text-xs italic text-muted-foreground"
             >
-              +{{ getForecastsByTrend("stable").length - 5 }} {{ t("demand.more") }}
+              +{{ getForecastsByTrend("stable").length - 5 }}
+              {{ t("demand.more") }}
             </p>
           </CardContent>
         </Card>
@@ -91,15 +119,23 @@
         <Card class="border-l-4 border-l-red-500">
           <CardHeader class="pb-3">
             <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/10">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-500/10"
+              >
                 <TrendingDown class="h-5 w-5 text-red-500" />
               </div>
               <div>
-                <CardTitle class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                <CardTitle
+                  class="text-sm font-semibold uppercase tracking-wide text-muted-foreground"
+                >
                   {{ t("demand.decreasingDemand") }}
                 </CardTitle>
                 <p class="text-xl font-bold">
-                  {{ t("demand.itemsCount", { count: getForecastsByTrend("decreasing").length }) }}
+                  {{
+                    t("demand.itemsCount", {
+                      count: getForecastsByTrend("decreasing").length,
+                    })
+                  }}
                 </p>
               </div>
             </div>
@@ -110,7 +146,9 @@
               :key="item.id"
               class="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2 hover:bg-muted"
             >
-              <span class="mr-4 truncate text-sm font-medium">{{ item.item_name }}</span>
+              <span class="mr-4 truncate text-sm font-medium">{{
+                item.item_name
+              }}</span>
               <Badge class="shrink-0 bg-red-500/10 text-red-500">
                 {{ getChangePercent(item) }}%
               </Badge>
@@ -119,7 +157,8 @@
               v-if="getForecastsByTrend('decreasing').length > 5"
               class="pt-1 text-center text-xs italic text-muted-foreground"
             >
-              +{{ getForecastsByTrend("decreasing").length - 5 }} {{ t("demand.more") }}
+              +{{ getForecastsByTrend("decreasing").length - 5 }}
+              {{ t("demand.more") }}
             </p>
           </CardContent>
         </Card>
@@ -148,10 +187,7 @@ const { selectedLocation, selectedCategory, getCurrentFilters } = useFilters();
 
 // Filter forecasts based on inventory filters
 const forecasts = computed(() => {
-  if (
-    selectedLocation.value === "all" &&
-    selectedCategory.value === "all"
-  ) {
+  if (selectedLocation.value === "all" && selectedCategory.value === "all") {
     return allForecasts.value;
   }
 

@@ -1,7 +1,7 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
 import { DropdownMenuItem, useForwardProps } from "reka-ui";
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 
 const props = defineProps({
   disabled: { type: Boolean, required: false },

@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "inventory-api",
+  "main": "src/entry.py",
+  "compatibility_date": "2026-03-24",
+  "compatibility_flags": ["python_workers"],
+  "kv_namespaces": [
+    {
+      "binding": "INVENTORY_KV",
+      "id": "686f63570a3241798376f261c68a564f",
+    },
+  ],
+}

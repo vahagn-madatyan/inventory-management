@@ -1,5 +1,5 @@
 <script setup>
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 import { badgeVariants } from ".";
 
 const props = defineProps({

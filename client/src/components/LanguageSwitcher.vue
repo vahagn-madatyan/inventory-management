@@ -14,10 +14,7 @@
         @click="setLocale(locale)"
       >
         <span>{{ getLanguageName(locale) }}</span>
-        <Check
-          v-if="currentLocale === locale"
-          class="h-4 w-4 text-primary"
-        />
+        <Check v-if="currentLocale === locale" class="h-4 w-4 text-primary" />
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

@@ -1,7 +1,10 @@
 <template>
   <div class="flex items-center gap-3 flex-wrap">
     <div class="flex items-center gap-1.5">
-      <label class="text-xs font-medium text-muted-foreground whitespace-nowrap">{{ t("filters.timePeriod") }}</label>
+      <label
+        class="text-xs font-medium text-muted-foreground whitespace-nowrap"
+        >{{ t("filters.timePeriod") }}</label
+      >
       <select
         v-model="selectedPeriod"
         class="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
@@ -23,36 +26,53 @@
     </div>
 
     <div class="flex items-center gap-1.5">
-      <label class="text-xs font-medium text-muted-foreground whitespace-nowrap">{{ t("filters.location") }}</label>
+      <label
+        class="text-xs font-medium text-muted-foreground whitespace-nowrap"
+        >{{ t("filters.location") }}</label
+      >
       <select
         v-model="selectedLocation"
         class="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
       >
         <option value="all">{{ t("filters.all") }}</option>
-        <option value="San Francisco">{{ t("warehouses.sanFrancisco") }}</option>
+        <option value="San Francisco">
+          {{ t("warehouses.sanFrancisco") }}
+        </option>
         <option value="London">{{ t("warehouses.london") }}</option>
         <option value="Tokyo">{{ t("warehouses.tokyo") }}</option>
       </select>
     </div>
 
     <div class="flex items-center gap-1.5">
-      <label class="text-xs font-medium text-muted-foreground whitespace-nowrap">{{ t("filters.category") }}</label>
+      <label
+        class="text-xs font-medium text-muted-foreground whitespace-nowrap"
+        >{{ t("filters.category") }}</label
+      >
       <select
         v-model="selectedCategory"
         class="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"
       >
         <option value="all">{{ t("filters.all") }}</option>
-        <option value="circuit boards">{{ t("categories.circuitBoards") }}</option>
+        <option value="circuit boards">
+          {{ t("categories.circuitBoards") }}
+        </option>
         <option value="sensors">{{ t("categories.sensors") }}</option>
         <option value="actuators">{{ t("categories.actuators") }}</option>
         <option value="controllers">{{ t("categories.controllers") }}</option>
-        <option value="power supplies">{{ t("categories.powerSupplies") }}</option>
-        <option value="mechanical parts">{{ t("categories.mechanicalParts") }}</option>
+        <option value="power supplies">
+          {{ t("categories.powerSupplies") }}
+        </option>
+        <option value="mechanical parts">
+          {{ t("categories.mechanicalParts") }}
+        </option>
       </select>
     </div>
 
     <div class="flex items-center gap-1.5">
-      <label class="text-xs font-medium text-muted-foreground whitespace-nowrap">{{ t("filters.orderStatus") }}</label>
+      <label
+        class="text-xs font-medium text-muted-foreground whitespace-nowrap"
+        >{{ t("filters.orderStatus") }}</label
+      >
       <select
         v-model="selectedStatus"
         class="h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring"

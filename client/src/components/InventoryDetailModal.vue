@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="max-w-2xl max-h-[90vh] overflow-y-auto">
       <DialogHeader>
@@ -20,16 +24,25 @@
           >
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
               <rect
-                x="8" y="12" width="32" height="28" rx="2"
-                stroke="currentColor" stroke-width="2.5"
+                x="8"
+                y="12"
+                width="32"
+                height="28"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="2.5"
               />
               <path
                 d="M16 8V16M32 8V16M8 20H40"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
               />
               <path
                 d="M16 28H32M16 34H24"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
               />
             </svg>
           </div>
@@ -50,7 +63,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card class="border-2 border-blue-200 bg-blue-50">
             <CardContent class="p-4">
-              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+              <p
+                class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1"
+              >
                 Quantity on Hand
               </p>
               <p class="text-3xl font-bold text-foreground">
@@ -60,13 +75,17 @@
           </Card>
           <Card :class="summaryCardClass">
             <CardContent class="p-4">
-              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+              <p
+                class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1"
+              >
                 Stock Level
               </p>
               <p class="text-3xl font-bold text-foreground">
                 {{ stockPercentage }}%
               </p>
-              <p class="text-xs text-muted-foreground mt-0.5">vs. reorder point</p>
+              <p class="text-xs text-muted-foreground mt-0.5">
+                vs. reorder point
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -74,7 +93,9 @@
         <!-- Info grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Category
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -83,7 +104,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Location
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -92,7 +115,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Reorder Point
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -101,19 +126,28 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Units Remaining
             </span>
             <span
               class="text-sm font-medium"
-              :class="inventoryItem.quantity_on_hand <= inventoryItem.reorder_point ? 'text-destructive' : 'text-emerald-600'"
+              :class="
+                inventoryItem.quantity_on_hand <= inventoryItem.reorder_point
+                  ? 'text-destructive'
+                  : 'text-emerald-600'
+              "
             >
-              {{ inventoryItem.quantity_on_hand - inventoryItem.reorder_point }} units
+              {{ inventoryItem.quantity_on_hand - inventoryItem.reorder_point }}
+              units
             </span>
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Unit Cost
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -122,16 +156,26 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Total Value
             </span>
             <span class="text-sm font-bold text-blue-600">
-              {{ currencySymbol }}{{ totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
+              {{ currencySymbol
+              }}{{
+                totalValue.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+              }}
             </span>
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Warehouse
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -140,7 +184,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Status
             </span>
             <span>
@@ -233,8 +279,10 @@ const stockBadgeClass = computed(() => {
 
 const stockIconBgClass = computed(() => {
   const status = stockStatus.value;
-  if (status === "Low Stock") return "bg-gradient-to-br from-red-500 to-red-600";
-  if (status === "Adequate") return "bg-gradient-to-br from-amber-500 to-amber-600";
+  if (status === "Low Stock")
+    return "bg-gradient-to-br from-red-500 to-red-600";
+  if (status === "Adequate")
+    return "bg-gradient-to-br from-amber-500 to-amber-600";
   return "bg-gradient-to-br from-emerald-500 to-emerald-600";
 });
 

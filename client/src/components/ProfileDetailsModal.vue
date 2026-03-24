@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="sm:max-w-[600px]">
       <DialogHeader>
@@ -13,20 +17,34 @@
 
       <div class="flex flex-col gap-6">
         <!-- Avatar section -->
-        <div class="flex flex-col items-center gap-3 pb-6 border-b border-border">
-          <Avatar size="lg" shape="circle" class="bg-gradient-to-br from-blue-600 to-blue-800 text-white font-bold shadow-md">
-            <AvatarFallback class="bg-transparent text-white text-3xl font-bold">
+        <div
+          class="flex flex-col items-center gap-3 pb-6 border-b border-border"
+        >
+          <Avatar
+            size="lg"
+            shape="circle"
+            class="bg-gradient-to-br from-blue-600 to-blue-800 text-white font-bold shadow-md"
+          >
+            <AvatarFallback
+              class="bg-transparent text-white text-3xl font-bold"
+            >
               {{ getInitials(currentUser.name) }}
             </AvatarFallback>
           </Avatar>
-          <h4 class="text-2xl font-bold text-foreground">{{ currentUser.name }}</h4>
-          <p class="text-sm text-muted-foreground">{{ currentUser.jobTitle }}</p>
+          <h4 class="text-2xl font-bold text-foreground">
+            {{ currentUser.name }}
+          </h4>
+          <p class="text-sm text-muted-foreground">
+            {{ currentUser.jobTitle }}
+          </p>
         </div>
 
         <!-- Info grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.email") }}
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -35,7 +53,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.department") }}
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -44,7 +64,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.location") }}
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -53,7 +75,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.phone") }}
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -62,7 +86,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.joinDate") }}
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -71,7 +97,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               {{ t("profileDetails.employeeId") }}
             </span>
             <span class="text-sm font-medium text-foreground">

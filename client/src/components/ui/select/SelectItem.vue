@@ -7,7 +7,7 @@ import {
   SelectItemText,
   useForwardProps,
 } from "reka-ui";
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 
 const props = defineProps({
   value: { type: null, required: true },

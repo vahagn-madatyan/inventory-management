@@ -1,6 +1,6 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 import TableCell from "./TableCell.vue";
 import TableRow from "./TableRow.vue";
 

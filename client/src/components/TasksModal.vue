@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="sm:max-w-[900px] max-h-[85vh] flex flex-col">
       <DialogHeader>
@@ -41,11 +45,7 @@
 
             <div class="flex-1 space-y-2">
               <Label for="task-due-date">{{ t("tasks.dueDate") }}</Label>
-              <Input
-                id="task-due-date"
-                v-model="newTask.dueDate"
-                type="date"
-              />
+              <Input id="task-due-date" v-model="newTask.dueDate" type="date" />
             </div>
 
             <Button
@@ -63,7 +63,10 @@
         <div class="border-t border-border" />
 
         <!-- Tasks List -->
-        <div v-if="sortedTasks.length === 0" class="text-center py-12 text-muted-foreground text-base italic">
+        <div
+          v-if="sortedTasks.length === 0"
+          class="text-center py-12 text-muted-foreground text-base italic"
+        >
           {{ t("tasks.noTasks") }}
         </div>
 
@@ -95,7 +98,8 @@
                 <span
                   class="text-sm font-semibold cursor-pointer select-none truncate"
                   :class="{
-                    'line-through text-muted-foreground': task.status === 'completed',
+                    'line-through text-muted-foreground':
+                      task.status === 'completed',
                     'text-foreground': task.status !== 'completed',
                   }"
                   @click="emit('toggle-task', task.id)"
@@ -116,19 +120,43 @@
             <div class="flex items-center gap-2 pl-8">
               <Badge
                 :class="{
-                  'bg-red-100 text-red-800 border-red-200 hover:bg-red-100': task.priority === 'high',
-                  'bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-100': task.priority === 'medium',
-                  'bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-100': task.priority === 'low',
+                  'bg-red-100 text-red-800 border-red-200 hover:bg-red-100':
+                    task.priority === 'high',
+                  'bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-100':
+                    task.priority === 'medium',
+                  'bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-100':
+                    task.priority === 'low',
                 }"
                 variant="outline"
               >
                 {{ translatePriority(task.priority) }}
               </Badge>
 
-              <span class="flex items-center gap-1 text-xs text-muted-foreground">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-muted-foreground/60">
-                  <rect x="2" y="3" width="10" height="9" rx="1" stroke="currentColor" stroke-width="1.2" />
-                  <path d="M4.5 1.5V4.5M9.5 1.5V4.5M2 6H12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              <span
+                class="flex items-center gap-1 text-xs text-muted-foreground"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  class="text-muted-foreground/60"
+                >
+                  <rect
+                    x="2"
+                    y="3"
+                    width="10"
+                    height="9"
+                    rx="1"
+                    stroke="currentColor"
+                    stroke-width="1.2"
+                  />
+                  <path
+                    d="M4.5 1.5V4.5M9.5 1.5V4.5M2 6H12"
+                    stroke="currentColor"
+                    stroke-width="1.2"
+                    stroke-linecap="round"
+                  />
                 </svg>
                 {{ formatDueDate(task.dueDate) }}
               </span>
@@ -136,10 +164,14 @@
               <Badge
                 class="ml-auto"
                 :class="{
-                  'bg-red-100 text-red-800 border-red-200 hover:bg-red-100': getStatusClass(task.dueDate, task.status) === 'overdue',
-                  'bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-100': getStatusClass(task.dueDate, task.status) === 'urgent',
-                  'bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-100': getStatusClass(task.dueDate, task.status) === 'upcoming',
-                  'bg-green-100 text-green-800 border-green-200 hover:bg-green-100': getStatusClass(task.dueDate, task.status) === 'completed',
+                  'bg-red-100 text-red-800 border-red-200 hover:bg-red-100':
+                    getStatusClass(task.dueDate, task.status) === 'overdue',
+                  'bg-amber-100 text-amber-800 border-amber-200 hover:bg-amber-100':
+                    getStatusClass(task.dueDate, task.status) === 'urgent',
+                  'bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-100':
+                    getStatusClass(task.dueDate, task.status) === 'upcoming',
+                  'bg-green-100 text-green-800 border-green-200 hover:bg-green-100':
+                    getStatusClass(task.dueDate, task.status) === 'completed',
                 }"
                 variant="outline"
               >
@@ -241,8 +273,7 @@ const formatDueDate = (dateString) => {
   return date.toLocaleDateString(locale, {
     month: "short",
     day: "numeric",
-    year:
-      date.getFullYear() !== today.getFullYear() ? "numeric" : undefined,
+    year: date.getFullYear() !== today.getFullYear() ? "numeric" : undefined,
   });
 };
 
@@ -268,7 +299,8 @@ const getStatusText = (dueDate, status) => {
   if (status === "completed") return isJapanese ? "\u5B8C\u4E86" : "Completed";
 
   const statusClass = getStatusClass(dueDate, status);
-  if (statusClass === "overdue") return isJapanese ? "\u671F\u9650\u8D85\u904E" : "Overdue";
+  if (statusClass === "overdue")
+    return isJapanese ? "\u671F\u9650\u8D85\u904E" : "Overdue";
   if (statusClass === "urgent")
     return isJapanese ? "\u3082\u3046\u3059\u3050\u671F\u9650" : "Due Soon";
   return isJapanese ? "\u4E88\u5B9A" : "Upcoming";

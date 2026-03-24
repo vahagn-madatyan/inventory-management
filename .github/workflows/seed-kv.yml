@@ -1,0 +1,63 @@
+name: Seed KV Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type 'seed' to confirm overwriting KV data"
+        required: true
+
+jobs:
+  seed:
+    if: github.event.inputs.confirm == 'seed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Seed inventory
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:inventory" --path=server/data/inventory.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed orders
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:orders" --path=server/data/orders.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed demand forecasts
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:demand_forecasts" --path=server/data/demand_forecasts.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed backlog items
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:backlog_items" --path=server/data/backlog_items.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed spending
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:spending" --path=server/data/spending.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed transactions
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:transactions" --path=server/data/transactions.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed purchase orders
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:purchase_orders" --path=server/data/purchase_orders.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}
+      - name: Seed restocking orders
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: kv key put "data:restocking_orders" --path=server/data/restocking_orders.json --namespace-id=${{ secrets.KV_NAMESPACE_ID }}

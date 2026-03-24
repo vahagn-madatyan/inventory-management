@@ -52,3 +52,14 @@ logs/
 
 # Environment variables
 .env
+.env.local
+.dev.vars
+
+# Cloudflare Wrangler
+worker/.wrangler/
+worker/.venv/
+worker/.venv-workers/
+worker/python_modules/
+worker/node_modules/
+worker/package-lock.json
+.wrangler/

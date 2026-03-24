@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="max-w-2xl max-h-[90vh] overflow-y-auto">
       <DialogHeader>
@@ -19,12 +23,19 @@
           >
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
               <rect
-                x="8" y="12" width="32" height="28" rx="2"
-                stroke="currentColor" stroke-width="2.5"
+                x="8"
+                y="12"
+                width="32"
+                height="28"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="2.5"
               />
               <path
                 d="M16 8V16M32 8V16M8 20H40"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
               />
             </svg>
           </div>
@@ -44,7 +55,9 @@
         <!-- Info grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Category
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -53,7 +66,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Warehouse
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -62,7 +77,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Units Ordered
             </span>
             <span class="text-sm font-medium text-foreground">
@@ -71,7 +88,9 @@
           </div>
 
           <div class="flex flex-col gap-1">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
               Total Revenue
             </span>
             <span class="text-sm font-bold text-blue-600">
@@ -82,7 +101,9 @@
           <Card class="md:col-span-2 border-2 border-muted">
             <CardContent class="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div class="flex flex-col gap-1">
-                <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span
+                  class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Current Stock
                 </span>
                 <span class="text-sm font-medium text-foreground">
@@ -90,7 +111,9 @@
                 </span>
               </div>
               <div class="flex flex-col gap-1">
-                <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span
+                  class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Reorder Point
                 </span>
                 <span class="text-sm font-medium text-foreground">
@@ -98,7 +121,9 @@
                 </span>
               </div>
               <div class="flex flex-col gap-1">
-                <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span
+                  class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   First Order Date
                 </span>
                 <span class="text-sm font-medium text-foreground">
@@ -106,7 +131,9 @@
                 </span>
               </div>
               <div class="flex flex-col gap-1">
-                <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span
+                  class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
                   Stock Status
                 </span>
                 <span>

@@ -37,9 +37,7 @@ export function useModals() {
       const isMockTask = currentUser.value.tasks.some((t) => t.id === taskId);
 
       if (isMockTask) {
-        const index = currentUser.value.tasks.findIndex(
-          (t) => t.id === taskId,
-        );
+        const index = currentUser.value.tasks.findIndex((t) => t.id === taskId);
         if (index !== -1) {
           currentUser.value.tasks.splice(index, 1);
         }

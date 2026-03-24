@@ -8,7 +8,7 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from "reka-ui";
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 
 const props = defineProps({
   forceMount: { type: Boolean, required: false },

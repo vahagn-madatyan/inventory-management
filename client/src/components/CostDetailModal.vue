@@ -1,7 +1,11 @@
 <template>
   <Dialog
     :open="isOpen"
-    @update:open="(val) => { if (!val) emit('close') }"
+    @update:open="
+      (val) => {
+        if (!val) emit('close');
+      }
+    "
   >
     <DialogContent class="max-w-xl max-h-[90vh] overflow-y-auto">
       <DialogHeader>
@@ -13,9 +17,13 @@
 
       <template v-if="costData">
         <!-- Total cost summary -->
-        <Card class="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0">
+        <Card
+          class="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0"
+        >
           <CardContent class="p-6 text-center">
-            <div class="text-sm font-semibold uppercase tracking-widest opacity-90 mb-2">
+            <div
+              class="text-sm font-semibold uppercase tracking-widest opacity-90 mb-2"
+            >
               Total Costs
             </div>
             <div class="text-4xl font-bold">
@@ -34,25 +42,43 @@
                   class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-500 text-white flex items-center justify-center"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="4" y="6" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2" />
-                    <path d="M8 6V4M16 6V4M4 10H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <rect
+                      x="4"
+                      y="6"
+                      width="16"
+                      height="14"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M8 6V4M16 6V4M4 10H20"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
                   </svg>
                 </div>
                 <div class="flex-1">
                   <div class="font-semibold text-foreground">Procurement</div>
                   <div class="text-2xl font-bold text-foreground">
-                    {{ currencySymbol }}{{ costData.procurement.toLocaleString() }}
+                    {{ currencySymbol
+                    }}{{ costData.procurement.toLocaleString() }}
                   </div>
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <div class="flex-1 h-2 bg-blue-200 rounded-full overflow-hidden">
+                <div
+                  class="flex-1 h-2 bg-blue-200 rounded-full overflow-hidden"
+                >
                   <div
                     class="h-full bg-blue-500 rounded-full transition-all duration-500"
                     :style="{ width: getProcurementPercentage() + '%' }"
                   />
                 </div>
-                <span class="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                <span
+                  class="text-sm text-muted-foreground font-medium whitespace-nowrap"
+                >
                   {{ getProcurementPercentage() }}% of total
                 </span>
               </div>
@@ -67,25 +93,41 @@
                   class="flex-shrink-0 w-12 h-12 rounded-xl bg-violet-500 text-white flex items-center justify-center"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" />
-                    <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="8"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M12 8V12L15 15"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
                   </svg>
                 </div>
                 <div class="flex-1">
                   <div class="font-semibold text-foreground">Operational</div>
                   <div class="text-2xl font-bold text-foreground">
-                    {{ currencySymbol }}{{ costData.operational.toLocaleString() }}
+                    {{ currencySymbol
+                    }}{{ costData.operational.toLocaleString() }}
                   </div>
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <div class="flex-1 h-2 bg-violet-200 rounded-full overflow-hidden">
+                <div
+                  class="flex-1 h-2 bg-violet-200 rounded-full overflow-hidden"
+                >
                   <div
                     class="h-full bg-violet-500 rounded-full transition-all duration-500"
                     :style="{ width: getOperationalPercentage() + '%' }"
                   />
                 </div>
-                <span class="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                <span
+                  class="text-sm text-muted-foreground font-medium whitespace-nowrap"
+                >
                   {{ getOperationalPercentage() }}% of total
                 </span>
               </div>
@@ -100,8 +142,18 @@
                   class="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
-                    <path d="M6 20C6 16.6863 8.68629 14 12 14C15.3137 14 18 16.6863 18 20" stroke="currentColor" stroke-width="2" />
+                    <circle
+                      cx="12"
+                      cy="8"
+                      r="4"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M6 20C6 16.6863 8.68629 14 12 14C15.3137 14 18 16.6863 18 20"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
                   </svg>
                 </div>
                 <div class="flex-1">
@@ -112,13 +164,17 @@
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <div class="flex-1 h-2 bg-green-200 rounded-full overflow-hidden">
+                <div
+                  class="flex-1 h-2 bg-green-200 rounded-full overflow-hidden"
+                >
                   <div
                     class="h-full bg-emerald-500 rounded-full transition-all duration-500"
                     :style="{ width: getLaborPercentage() + '%' }"
                   />
                 </div>
-                <span class="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                <span
+                  class="text-sm text-muted-foreground font-medium whitespace-nowrap"
+                >
                   {{ getLaborPercentage() }}% of total
                 </span>
               </div>
@@ -149,13 +205,17 @@
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <div class="flex-1 h-2 bg-yellow-200 rounded-full overflow-hidden">
+                <div
+                  class="flex-1 h-2 bg-yellow-200 rounded-full overflow-hidden"
+                >
                   <div
                     class="h-full bg-amber-500 rounded-full transition-all duration-500"
                     :style="{ width: getOverheadPercentage() + '%' }"
                   />
                 </div>
-                <span class="text-sm text-muted-foreground font-medium whitespace-nowrap">
+                <span
+                  class="text-sm text-muted-foreground font-medium whitespace-nowrap"
+                >
                   {{ getOverheadPercentage() }}% of total
                 </span>
               </div>

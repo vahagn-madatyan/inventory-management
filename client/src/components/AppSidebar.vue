@@ -1,10 +1,10 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from '@/composables/useI18n'
-import { useAuth } from '@/composables/useAuth'
-import { useModals } from '@/composables/useModals'
-import { mainNavItems, secondaryNavItems } from '@/config/navigation.js'
-import { ChevronsUpDown, LogOut, User, ListTodo } from 'lucide-vue-next'
+import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "@/composables/useI18n";
+import { useAuth } from "@/composables/useAuth";
+import { useModals } from "@/composables/useModals";
+import { mainNavItems, secondaryNavItems } from "@/config/navigation.js";
+import { ChevronsUpDown, LogOut, User, ListTodo } from "lucide-vue-next";
 
 import {
   Sidebar,
@@ -17,7 +17,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from "@/components/ui/sidebar";
 
 import {
   DropdownMenu,
@@ -25,43 +25,39 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const route = useRoute()
-const router = useRouter()
-const { t } = useI18n()
-const { currentUser } = useAuth()
-const { showProfileDetails, showTasks } = useModals()
+const route = useRoute();
+const router = useRouter();
+const { t } = useI18n();
+const { currentUser } = useAuth();
+const { showProfileDetails, showTasks } = useModals();
 
 function getTitle(item) {
-  return item.titleKey ? t(item.titleKey) : item.fallbackTitle
+  return item.titleKey ? t(item.titleKey) : item.fallbackTitle;
 }
 
 function isActive(path) {
-  if (path === '/') {
-    return route.path === '/'
+  if (path === "/") {
+    return route.path === "/";
   }
-  return route.path === path || route.path.startsWith(path + '/')
+  return route.path === path || route.path.startsWith(path + "/");
 }
 
 function getInitials() {
-  const name = currentUser.value.name
-  if (!name) return ''
-  const parts = name.split(' ')
+  const name = currentUser.value.name;
+  if (!name) return "";
+  const parts = name.split(" ");
   if (parts.length >= 2) {
-    return parts[0][0] + parts[parts.length - 1][0]
+    return parts[0][0] + parts[parts.length - 1][0];
   }
-  return parts[0][0]
+  return parts[0][0];
 }
 
 function logout() {
-  alert('Logged out')
+  alert("Logged out");
 }
 </script>
 
@@ -71,12 +67,18 @@ function logout() {
       <SidebarMenu>
         <SidebarMenuItem>
           <SidebarMenuButton size="lg" as="router-link" to="/">
-            <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <div
+              class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+            >
               CC
             </div>
             <div class="grid flex-1 text-left text-sm leading-tight">
-              <span class="truncate font-semibold">{{ t('nav.companyName') || 'Catalyst Components' }}</span>
-              <span class="truncate text-xs">{{ t('nav.subtitle') || 'Inventory Management' }}</span>
+              <span class="truncate font-semibold">{{
+                t("nav.companyName") || "Catalyst Components"
+              }}</span>
+              <span class="truncate text-xs">{{
+                t("nav.subtitle") || "Inventory Management"
+              }}</span>
             </div>
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -128,12 +130,19 @@ function logout() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
-              <SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+              <SidebarMenuButton
+                size="lg"
+                class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
                 <Avatar class="h-8 w-8 rounded-lg">
-                  <AvatarFallback class="rounded-lg">{{ getInitials() }}</AvatarFallback>
+                  <AvatarFallback class="rounded-lg">{{
+                    getInitials()
+                  }}</AvatarFallback>
                 </Avatar>
                 <div class="grid flex-1 text-left text-sm leading-tight">
-                  <span class="truncate font-semibold">{{ currentUser.name }}</span>
+                  <span class="truncate font-semibold">{{
+                    currentUser.name
+                  }}</span>
                   <span class="truncate text-xs">{{ currentUser.email }}</span>
                 </div>
                 <ChevronsUpDown class="ml-auto size-4" />

@@ -1,7 +1,7 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
 import { Label } from "reka-ui";
-import { cn } from '@/lib';
+import { cn } from "@/lib";
 
 const props = defineProps({
   for: { type: String, required: false },

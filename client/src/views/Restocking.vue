@@ -1,37 +1,70 @@
 <template>
   <div class="space-y-6">
     <div>
-      <h1 class="text-2xl font-semibold tracking-tight">{{ t('restocking.title') }}</h1>
-      <p class="text-sm text-muted-foreground">{{ t('restocking.description') }}</p>
+      <h1 class="text-2xl font-semibold tracking-tight">
+        {{ t("restocking.title") }}
+      </h1>
+      <p class="text-sm text-muted-foreground">
+        {{ t("restocking.description") }}
+      </p>
     </div>
 
-    <div v-if="loading" class="py-8 text-center text-muted-foreground">{{ t('common.loading') }}</div>
-    <div v-else-if="error" class="py-8 text-center text-destructive">{{ error }}</div>
+    <div v-if="loading" class="py-8 text-center text-muted-foreground">
+      {{ t("common.loading") }}
+    </div>
+    <div v-else-if="error" class="py-8 text-center text-destructive">
+      {{ error }}
+    </div>
 
     <!-- Success State -->
-    <div v-else-if="submitted && submittedOrder" class="flex justify-center py-8">
+    <div
+      v-else-if="submitted && submittedOrder"
+      class="flex justify-center py-8"
+    >
       <Card class="max-w-[480px] w-full text-center">
         <CardContent class="pt-8 pb-8 space-y-6">
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-3xl font-bold">
+          <div
+            class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-3xl font-bold"
+          >
             &#10003;
           </div>
-          <h3 class="text-xl font-bold tracking-tight">{{ t('restocking.orderSuccess') }}</h3>
+          <h3 class="text-xl font-bold tracking-tight">
+            {{ t("restocking.orderSuccess") }}
+          </h3>
           <div class="space-y-3">
-            <div class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3">
-              <span class="text-sm text-muted-foreground">{{ t('restocking.orderNumber') }}</span>
-              <span class="text-sm font-bold">{{ submittedOrder.order_number }}</span>
+            <div
+              class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3"
+            >
+              <span class="text-sm text-muted-foreground">{{
+                t("restocking.orderNumber")
+              }}</span>
+              <span class="text-sm font-bold">{{
+                submittedOrder.order_number
+              }}</span>
             </div>
-            <div class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3">
-              <span class="text-sm text-muted-foreground">{{ t('restocking.expectedDelivery') }}</span>
-              <span class="text-sm font-bold">{{ formatDate(submittedOrder.expected_delivery) }}</span>
+            <div
+              class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3"
+            >
+              <span class="text-sm text-muted-foreground">{{
+                t("restocking.expectedDelivery")
+              }}</span>
+              <span class="text-sm font-bold">{{
+                formatDate(submittedOrder.expected_delivery)
+              }}</span>
             </div>
-            <div class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3">
-              <span class="text-sm text-muted-foreground">{{ t('restocking.orderTotal') }}</span>
-              <span class="text-sm font-bold">{{ formatCurrency(submittedOrder.total_cost, currentCurrency) }}</span>
+            <div
+              class="flex items-center justify-between rounded-lg bg-muted/50 px-4 py-3"
+            >
+              <span class="text-sm text-muted-foreground">{{
+                t("restocking.orderTotal")
+              }}</span>
+              <span class="text-sm font-bold">{{
+                formatCurrency(submittedOrder.total_cost, currentCurrency)
+              }}</span>
             </div>
           </div>
           <Button @click="resetForm" class="mt-2">
-            {{ t('restocking.placeAnother') }}
+            {{ t("restocking.placeAnother") }}
           </Button>
         </CardContent>
       </Card>
@@ -40,12 +73,20 @@
     <template v-else>
       <!-- Budget Control -->
       <Card>
-        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle class="text-base font-semibold">{{ t('restocking.budgetControl') }}</CardTitle>
-          <span class="text-xl font-bold text-primary">{{ formatCurrency(budget, currentCurrency) }}</span>
+        <CardHeader
+          class="flex flex-row items-center justify-between space-y-0 pb-2"
+        >
+          <CardTitle class="text-base font-semibold">{{
+            t("restocking.budgetControl")
+          }}</CardTitle>
+          <span class="text-xl font-bold text-primary">{{
+            formatCurrency(budget, currentCurrency)
+          }}</span>
         </CardHeader>
         <CardContent class="space-y-4">
-          <p class="text-sm text-muted-foreground">{{ t('restocking.setBudget') }}</p>
+          <p class="text-sm text-muted-foreground">
+            {{ t("restocking.setBudget") }}
+          </p>
           <div class="flex items-center gap-4">
             <input
               type="range"
@@ -73,25 +114,39 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent class="pt-6">
-            <p class="text-sm text-muted-foreground">{{ t('restocking.recommendedItems') }}</p>
-            <p class="text-2xl font-bold tracking-tight mt-1">{{ recommendations.length }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ t("restocking.recommendedItems") }}
+            </p>
+            <p class="text-2xl font-bold tracking-tight mt-1">
+              {{ recommendations.length }}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent class="pt-6">
-            <p class="text-sm text-muted-foreground">{{ t('restocking.selectedItems') }}</p>
-            <p class="text-2xl font-bold tracking-tight mt-1">{{ selectedList.length }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ t("restocking.selectedItems") }}
+            </p>
+            <p class="text-2xl font-bold tracking-tight mt-1">
+              {{ selectedList.length }}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent class="pt-6">
-            <p class="text-sm text-muted-foreground">{{ t('restocking.estimatedCost') }}</p>
-            <p class="text-2xl font-bold tracking-tight mt-1 text-amber-600">{{ formatCurrency(runningTotal, currentCurrency) }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ t("restocking.estimatedCost") }}
+            </p>
+            <p class="text-2xl font-bold tracking-tight mt-1 text-amber-600">
+              {{ formatCurrency(runningTotal, currentCurrency) }}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent class="pt-6">
-            <p class="text-sm text-muted-foreground">{{ t('restocking.budgetRemaining') }}</p>
+            <p class="text-sm text-muted-foreground">
+              {{ t("restocking.budgetRemaining") }}
+            </p>
             <p
               class="text-2xl font-bold tracking-tight mt-1"
               :class="isOverBudget ? 'text-destructive' : 'text-emerald-600'"
@@ -104,34 +159,43 @@
 
       <!-- Recommendations Table -->
       <Card>
-        <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-4">
+        <CardHeader
+          class="flex flex-row items-center justify-between space-y-0 pb-4"
+        >
           <CardTitle class="text-base font-semibold">
-            {{ t('restocking.recommendedItems') }} ({{ recommendations.length }})
+            {{ t("restocking.recommendedItems") }} ({{
+              recommendations.length
+            }})
           </CardTitle>
           <div class="flex gap-2">
             <Button variant="outline" size="sm" @click="selectAll">
-              {{ t('restocking.selectAll') }}
+              {{ t("restocking.selectAll") }}
             </Button>
             <Button variant="outline" size="sm" @click="deselectAll">
-              {{ t('restocking.deselectAll') }}
+              {{ t("restocking.deselectAll") }}
             </Button>
           </div>
         </CardHeader>
         <CardContent>
-          <div v-if="recommendations.length === 0" class="py-12 text-center text-muted-foreground">
-            {{ t('restocking.noRecommendations') }}
+          <div
+            v-if="recommendations.length === 0"
+            class="py-12 text-center text-muted-foreground"
+          >
+            {{ t("restocking.noRecommendations") }}
           </div>
           <div v-else class="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead class="w-[50px]">{{ t('restocking.table.select') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.name') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.sku') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.source') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.quantity') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.unitCost') }}</TableHead>
-                  <TableHead>{{ t('restocking.table.lineTotal') }}</TableHead>
+                  <TableHead class="w-[50px]">{{
+                    t("restocking.table.select")
+                  }}</TableHead>
+                  <TableHead>{{ t("restocking.table.name") }}</TableHead>
+                  <TableHead>{{ t("restocking.table.sku") }}</TableHead>
+                  <TableHead>{{ t("restocking.table.source") }}</TableHead>
+                  <TableHead>{{ t("restocking.table.quantity") }}</TableHead>
+                  <TableHead>{{ t("restocking.table.unitCost") }}</TableHead>
+                  <TableHead>{{ t("restocking.table.lineTotal") }}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -151,19 +215,16 @@
                       v-if="getSourceClass(rec.source) === 'info'"
                       class="bg-blue-500/10 text-blue-600"
                     >
-                      {{ t('restocking.sources.' + rec.source) }}
+                      {{ t("restocking.sources." + rec.source) }}
                     </Badge>
                     <Badge
                       v-else-if="getSourceClass(rec.source) === 'danger'"
                       class="bg-destructive/10 text-destructive"
                     >
-                      {{ t('restocking.sources.' + rec.source) }}
+                      {{ t("restocking.sources." + rec.source) }}
                     </Badge>
-                    <Badge
-                      v-else
-                      class="bg-amber-500/10 text-amber-600"
-                    >
-                      {{ t('restocking.sources.' + rec.source) }}
+                    <Badge v-else class="bg-amber-500/10 text-amber-600">
+                      {{ t("restocking.sources." + rec.source) }}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -176,8 +237,12 @@
                       :disabled="!selectedItems[rec.sku]?.selected"
                     />
                   </TableCell>
-                  <TableCell>{{ formatCurrency(rec.unit_cost, currentCurrency) }}</TableCell>
-                  <TableCell class="font-semibold">{{ formatCurrency(getLineTotal(rec), currentCurrency) }}</TableCell>
+                  <TableCell>{{
+                    formatCurrency(rec.unit_cost, currentCurrency)
+                  }}</TableCell>
+                  <TableCell class="font-semibold">{{
+                    formatCurrency(getLineTotal(rec), currentCurrency)
+                  }}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -189,10 +254,14 @@
       <Card>
         <CardContent class="pt-6 space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-sm font-semibold">{{ t('restocking.budget') }}</span>
+            <span class="text-sm font-semibold">{{
+              t("restocking.budget")
+            }}</span>
             <span
               class="text-sm font-semibold"
-              :class="isOverBudget ? 'text-destructive' : 'text-muted-foreground'"
+              :class="
+                isOverBudget ? 'text-destructive' : 'text-muted-foreground'
+              "
             >
               {{ formatCurrency(runningTotal, currentCurrency) }} /
               {{ formatCurrency(budget, currentCurrency) }}
@@ -210,7 +279,7 @@
             ></div>
           </div>
           <p v-if="isOverBudget" class="text-xs font-semibold text-destructive">
-            {{ t('restocking.overBudget') }}:
+            {{ t("restocking.overBudget") }}:
             {{ formatCurrency(Math.abs(budgetRemaining), currentCurrency) }}
           </p>
         </CardContent>
@@ -224,16 +293,19 @@
               {{ formatCurrency(runningTotal, currentCurrency) }} /
               {{ formatCurrency(budget, currentCurrency) }}
             </span>
-            <span v-if="isOverBudget" class="text-xs font-semibold text-destructive">
-              {{ t('restocking.overBudget') }}
+            <span
+              v-if="isOverBudget"
+              class="text-xs font-semibold text-destructive"
+            >
+              {{ t("restocking.overBudget") }}
             </span>
           </div>
-          <Button
-            size="lg"
-            :disabled="!canSubmit"
-            @click="submitOrder"
-          >
-            {{ submitting ? t('restocking.submitting') : t('restocking.placeOrder') }}
+          <Button size="lg" :disabled="!canSubmit" @click="submitOrder">
+            {{
+              submitting
+                ? t("restocking.submitting")
+                : t("restocking.placeOrder")
+            }}
           </Button>
         </CardContent>
       </Card>
@@ -242,14 +314,21 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
-import { api } from '../api';
-import { formatCurrency } from '../utils/currency';
-import { useI18n } from '../composables/useI18n';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { ref, reactive, computed, onMounted } from "vue";
+import { api } from "../api";
+import { formatCurrency } from "../utils/currency";
+import { useI18n } from "../composables/useI18n";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 const { t, currentCurrency, translateProductName } = useI18n();
 
@@ -290,9 +369,7 @@ const budgetRemaining = computed(() => budget.value - runningTotal.value);
 const isOverBudget = computed(() => runningTotal.value > budget.value);
 const canSubmit = computed(
   () =>
-    selectedList.value.length > 0 &&
-    !isOverBudget.value &&
-    !submitting.value,
+    selectedList.value.length > 0 && !isOverBudget.value && !submitting.value,
 );
 const spendRatio = computed(() =>
   budget.value > 0 ? (runningTotal.value / budget.value) * 100 : 0,
@@ -331,16 +408,15 @@ const resetForm = () => {
 
 const getSourceClass = (source) => {
   return (
-    { demand: 'info', low_stock: 'danger', both: 'warning' }[source] ||
-    'info'
+    { demand: "info", low_stock: "danger", both: "warning" }[source] || "info"
   );
 };
 
 const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 };
 
@@ -357,7 +433,7 @@ const loadRecommendations = async () => {
       selectedItems[rec.sku] = { selected: true, quantity: rec.quantity };
     });
   } catch (err) {
-    error.value = 'Failed to load recommendations: ' + err.message;
+    error.value = "Failed to load recommendations: " + err.message;
   } finally {
     loading.value = false;
   }
@@ -375,7 +451,7 @@ const submitOrder = async () => {
     submittedOrder.value = await api.submitRestockingOrder(orderData);
     submitted.value = true;
   } catch (err) {
-    error.value = 'Failed to submit order: ' + err.message;
+    error.value = "Failed to submit order: " + err.message;
   } finally {
     submitting.value = false;
   }

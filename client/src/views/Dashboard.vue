@@ -2,30 +2,51 @@
   <div class="space-y-6">
     <!-- Page Header -->
     <div>
-      <h2 class="text-2xl font-semibold tracking-tight">{{ t("dashboard.title") }}</h2>
+      <h2 class="text-2xl font-semibold tracking-tight">
+        {{ t("dashboard.title") }}
+      </h2>
     </div>
 
-    <div v-if="loading" class="text-center py-12 text-muted-foreground">{{ t("common.loading") }}</div>
-    <div v-else-if="error" class="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive">{{ error }}</div>
+    <div v-if="loading" class="text-center py-12 text-muted-foreground">
+      {{ t("common.loading") }}
+    </div>
+    <div
+      v-else-if="error"
+      class="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive"
+    >
+      {{ error }}
+    </div>
     <div v-else class="space-y-6">
       <!-- Key Performance Indicators -->
       <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">{{ t("dashboard.kpi.title") }}</h3>
+        <h3
+          class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4"
+        >
+          {{ t("dashboard.kpi.title") }}
+        </h3>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <!-- KPI Card 1: Inventory Turnover -->
           <Card>
             <CardHeader class="pb-2">
-              <CardDescription class="text-xs font-semibold uppercase tracking-wide">{{
-                t("dashboard.kpi.inventoryTurnover")
-              }}</CardDescription>
+              <CardDescription
+                class="text-xs font-semibold uppercase tracking-wide"
+                >{{ t("dashboard.kpi.inventoryTurnover") }}</CardDescription
+              >
             </CardHeader>
             <CardContent>
-              <div class="text-3xl font-bold tracking-tight text-foreground">4.2</div>
+              <div class="text-3xl font-bold tracking-tight text-foreground">
+                4.2
+              </div>
               <p class="text-xs text-muted-foreground mt-1">
                 {{ t("dashboard.kpi.goal") }}: 4.5 (-6.67%)
               </p>
-              <div class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                <div class="h-full rounded-full bg-primary transition-all duration-500" style="width: 93.33%"></div>
+              <div
+                class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
+              >
+                <div
+                  class="h-full rounded-full bg-primary transition-all duration-500"
+                  style="width: 93.33%"
+                ></div>
               </div>
             </CardContent>
           </Card>
@@ -33,24 +54,31 @@
           <!-- KPI Card 2: Orders Fulfilled -->
           <Card>
             <CardHeader class="pb-2">
-              <CardDescription class="text-xs font-semibold uppercase tracking-wide">{{
-                t("dashboard.kpi.ordersFulfilled")
-              }}</CardDescription>
+              <CardDescription
+                class="text-xs font-semibold uppercase tracking-wide"
+                >{{ t("dashboard.kpi.ordersFulfilled") }}</CardDescription
+              >
             </CardHeader>
             <CardContent>
-              <div class="text-3xl font-bold tracking-tight text-foreground">{{ ordersData.fulfilled }}</div>
+              <div class="text-3xl font-bold tracking-tight text-foreground">
+                {{ ordersData.fulfilled }}
+              </div>
               <p class="text-xs text-muted-foreground mt-1">
                 {{ t("dashboard.kpi.goal") }}: {{ ordersData.goal }} ({{
                   calculatePercentage(ordersData.fulfilled, ordersData.goal)
                 }}%)
               </p>
-              <div class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+              <div
+                class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
+              >
                 <div
                   class="h-full rounded-full bg-primary transition-all duration-500"
                   :style="{
                     width:
-                      calculatePercentage(ordersData.fulfilled, ordersData.goal) +
-                      '%',
+                      calculatePercentage(
+                        ordersData.fulfilled,
+                        ordersData.goal,
+                      ) + '%',
                   }"
                 ></div>
               </div>
@@ -60,18 +88,23 @@
           <!-- KPI Card 3: Order Fill Rate -->
           <Card>
             <CardHeader class="pb-2">
-              <CardDescription class="text-xs font-semibold uppercase tracking-wide">{{
-                t("dashboard.kpi.orderFillRate")
-              }}</CardDescription>
+              <CardDescription
+                class="text-xs font-semibold uppercase tracking-wide"
+                >{{ t("dashboard.kpi.orderFillRate") }}</CardDescription
+              >
             </CardHeader>
             <CardContent>
-              <div class="text-3xl font-bold tracking-tight text-foreground">{{ fillRate }}%</div>
+              <div class="text-3xl font-bold tracking-tight text-foreground">
+                {{ fillRate }}%
+              </div>
               <p class="text-xs text-muted-foreground mt-1">
                 {{ t("dashboard.kpi.goal") }}: 95% ({{
                   fillRate - 95 > 0 ? "+" : ""
                 }}{{ (fillRate - 95).toFixed(2) }}%)
               </p>
-              <div class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+              <div
+                class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
+              >
                 <div
                   class="h-full rounded-full bg-emerald-500 transition-all duration-500"
                   :style="{ width: (fillRate / 95) * 100 + '%' }"
@@ -83,13 +116,16 @@
           <!-- KPI Card 4: Revenue -->
           <Card>
             <CardHeader class="pb-2">
-              <CardDescription class="text-xs font-semibold uppercase tracking-wide">{{
-                t(
-                  selectedPeriod === "all"
-                    ? "dashboard.kpi.revenueYTD"
-                    : "dashboard.kpi.revenueMTD",
-                )
-              }}</CardDescription>
+              <CardDescription
+                class="text-xs font-semibold uppercase tracking-wide"
+                >{{
+                  t(
+                    selectedPeriod === "all"
+                      ? "dashboard.kpi.revenueYTD"
+                      : "dashboard.kpi.revenueMTD",
+                  )
+                }}</CardDescription
+              >
             </CardHeader>
             <CardContent>
               <div class="text-3xl font-bold tracking-tight text-foreground">
@@ -105,12 +141,15 @@
                 {{ formatCurrency(revenueGoal, selectedCurrency) }} ({{
                   summary.total_orders_value > revenueGoal ? "+" : ""
                 }}{{
-                  ((summary.total_orders_value / revenueGoal - 1) * 100).toFixed(
-                    1,
-                  )
+                  (
+                    (summary.total_orders_value / revenueGoal - 1) *
+                    100
+                  ).toFixed(1)
                 }}%)
               </p>
-              <div class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+              <div
+                class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
+              >
                 <div
                   class="h-full rounded-full bg-primary transition-all duration-500"
                   :style="{
@@ -128,17 +167,25 @@
           <!-- KPI Card 5: Avg Processing Time -->
           <Card>
             <CardHeader class="pb-2">
-              <CardDescription class="text-xs font-semibold uppercase tracking-wide">{{
-                t("dashboard.kpi.avgProcessingTime")
-              }}</CardDescription>
+              <CardDescription
+                class="text-xs font-semibold uppercase tracking-wide"
+                >{{ t("dashboard.kpi.avgProcessingTime") }}</CardDescription
+              >
             </CardHeader>
             <CardContent>
-              <div class="text-3xl font-bold tracking-tight text-foreground">2.8</div>
+              <div class="text-3xl font-bold tracking-tight text-foreground">
+                2.8
+              </div>
               <p class="text-xs text-muted-foreground mt-1">
                 {{ t("dashboard.kpi.goal") }}: 3.0 (-6.67%)
               </p>
-              <div class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                <div class="h-full rounded-full bg-emerald-500 transition-all duration-500" style="width: 93.33%"></div>
+              <div
+                class="mt-3 h-1.5 w-full rounded-full bg-muted overflow-hidden"
+              >
+                <div
+                  class="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                  style="width: 93.33%"
+                ></div>
               </div>
             </CardContent>
           </Card>
@@ -147,7 +194,11 @@
 
       <!-- Summary Section -->
       <div>
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">{{ t("dashboard.summary.title") }}</h3>
+        <h3
+          class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4"
+        >
+          {{ t("dashboard.summary.title") }}
+        </h3>
       </div>
 
       <!-- Charts Grid -->
@@ -219,7 +270,13 @@
                     y="90"
                     text-anchor="middle"
                     class="text-xs fill-slate-500 font-medium uppercase tracking-wider"
-                    style="font-size: 12px; fill: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;"
+                    style="
+                      font-size: 12px;
+                      fill: #64748b;
+                      font-weight: 500;
+                      text-transform: uppercase;
+                      letter-spacing: 0.5px;
+                    "
                   >
                     {{ t("dashboard.orderHealth.total") }}
                   </text>
@@ -227,23 +284,47 @@
                     x="100"
                     y="120"
                     text-anchor="middle"
-                    style="font-size: 36px; fill: #0f172a; font-weight: 700;"
+                    style="font-size: 36px; fill: #0f172a; font-weight: 700"
                   >
                     {{ orderHealthMetrics.totalOrders }}
                   </text>
                 </svg>
                 <div class="grid grid-cols-2 gap-x-5 gap-y-2.5">
-                  <div class="flex items-center gap-2 text-sm text-slate-600 font-medium">
-                    <span class="inline-block w-2.5 h-2.5 rounded-sm" style="background: #10b981"></span>{{ t("status.delivered") }}
+                  <div
+                    class="flex items-center gap-2 text-sm text-slate-600 font-medium"
+                  >
+                    <span
+                      class="inline-block w-2.5 h-2.5 rounded-sm"
+                      style="background: #10b981"
+                    ></span
+                    >{{ t("status.delivered") }}
                   </div>
-                  <div class="flex items-center gap-2 text-sm text-slate-600 font-medium">
-                    <span class="inline-block w-2.5 h-2.5 rounded-sm" style="background: #3b82f6"></span>{{ t("status.shipped") }}
+                  <div
+                    class="flex items-center gap-2 text-sm text-slate-600 font-medium"
+                  >
+                    <span
+                      class="inline-block w-2.5 h-2.5 rounded-sm"
+                      style="background: #3b82f6"
+                    ></span
+                    >{{ t("status.shipped") }}
                   </div>
-                  <div class="flex items-center gap-2 text-sm text-slate-600 font-medium">
-                    <span class="inline-block w-2.5 h-2.5 rounded-sm" style="background: #f59e0b"></span>{{ t("status.processing") }}
+                  <div
+                    class="flex items-center gap-2 text-sm text-slate-600 font-medium"
+                  >
+                    <span
+                      class="inline-block w-2.5 h-2.5 rounded-sm"
+                      style="background: #f59e0b"
+                    ></span
+                    >{{ t("status.processing") }}
                   </div>
-                  <div class="flex items-center gap-2 text-sm text-slate-600 font-medium">
-                    <span class="inline-block w-2.5 h-2.5 rounded-sm" style="background: #ef4444"></span>{{ t("status.backordered") }}
+                  <div
+                    class="flex items-center gap-2 text-sm text-slate-600 font-medium"
+                  >
+                    <span
+                      class="inline-block w-2.5 h-2.5 rounded-sm"
+                      style="background: #ef4444"
+                    ></span
+                    >{{ t("status.backordered") }}
                   </div>
                 </div>
               </div>
@@ -251,10 +332,14 @@
               <!-- Right: Health Metrics -->
               <div class="flex flex-col gap-5 justify-center items-center">
                 <div class="flex flex-col gap-1.5 text-center w-full">
-                  <div class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider">
+                  <div
+                    class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider"
+                  >
                     {{ t("dashboard.orderHealth.revenue") }}
                   </div>
-                  <div class="text-2xl font-bold text-foreground tracking-tight">
+                  <div
+                    class="text-2xl font-bold text-foreground tracking-tight"
+                  >
                     {{
                       formatCurrency(
                         orderHealthMetrics.totalValue,
@@ -264,10 +349,14 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-1.5 text-center w-full">
-                  <div class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider">
+                  <div
+                    class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider"
+                  >
                     {{ t("dashboard.orderHealth.avgOrderValue") }}
                   </div>
-                  <div class="text-2xl font-bold text-foreground tracking-tight">
+                  <div
+                    class="text-2xl font-bold text-foreground tracking-tight"
+                  >
                     {{
                       formatCurrency(
                         orderHealthMetrics.avgOrderValue,
@@ -277,7 +366,9 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-1.5 text-center w-full">
-                  <div class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider">
+                  <div
+                    class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider"
+                  >
                     {{ t("dashboard.orderHealth.onTimeRate") }}
                   </div>
                   <div
@@ -294,10 +385,14 @@
                   </div>
                 </div>
                 <div class="flex flex-col gap-1.5 text-center w-full">
-                  <div class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider">
+                  <div
+                    class="text-[0.688rem] text-muted-foreground font-semibold uppercase tracking-wider"
+                  >
                     {{ t("dashboard.orderHealth.avgFulfillmentDays") }}
                   </div>
-                  <div class="text-2xl font-bold text-foreground tracking-tight">
+                  <div
+                    class="text-2xl font-bold text-foreground tracking-tight"
+                  >
                     {{ orderHealthMetrics.avgFulfillmentDays.toFixed(1) }}
                   </div>
                 </div>
@@ -312,13 +407,20 @@
             <CardTitle>{{ t("dashboard.inventoryValue.title") }}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div v-if="categoryData.length > 0" class="flex flex-col gap-6 px-4">
+            <div
+              v-if="categoryData.length > 0"
+              class="flex flex-col gap-6 px-4"
+            >
               <div
                 v-for="cat in categoryData"
                 :key="cat.name"
                 class="flex items-center gap-4"
               >
-                <div class="w-[120px] min-w-[120px] text-sm font-semibold text-slate-600 shrink-0">{{ translateCategory(cat.name) }}</div>
+                <div
+                  class="w-[120px] min-w-[120px] text-sm font-semibold text-slate-600 shrink-0"
+                >
+                  {{ translateCategory(cat.name) }}
+                </div>
                 <div class="flex-1 h-8 bg-slate-50 rounded-md overflow-hidden">
                   <div
                     class="h-full flex items-center justify-end pr-3 transition-all duration-500"
@@ -352,7 +454,10 @@
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div v-if="backlogItems.length === 0" class="py-12 text-center flex flex-col items-center gap-4">
+            <div
+              v-if="backlogItems.length === 0"
+              class="py-12 text-center flex flex-col items-center gap-4"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -373,54 +478,107 @@
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{{ t("dashboard.inventoryShortages.orderId") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.sku") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.itemName") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.quantityNeeded") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.quantityAvailable") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.shortage") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.daysDelayed") }}</TableHead>
-                    <TableHead>{{ t("dashboard.inventoryShortages.priority") }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.orderId")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.sku")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.itemName")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.quantityNeeded")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.quantityAvailable")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.shortage")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.daysDelayed")
+                    }}</TableHead>
+                    <TableHead>{{
+                      t("dashboard.inventoryShortages.priority")
+                    }}</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow v-for="item in backlogItems" :key="item.id">
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       <span class="font-semibold">{{ item.order_id }}</span>
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       <span class="font-semibold">{{ item.item_sku }}</span>
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       {{ translateProductName(item.item_name) }}
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       {{ item.quantity_needed }}
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       {{ item.quantity_available }}
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       <Badge variant="destructive">
                         {{
-                          Math.abs(item.quantity_needed - item.quantity_available)
+                          Math.abs(
+                            item.quantity_needed - item.quantity_available,
+                          )
                         }}
                         {{ t("dashboard.inventoryShortages.unitsShort") }}
                       </Badge>
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       <span
-                        :class="item.days_delayed > 7 ? 'text-red-500' : 'text-amber-500'"
+                        :class="
+                          item.days_delayed > 7
+                            ? 'text-red-500'
+                            : 'text-amber-500'
+                        "
                         class="font-semibold"
                       >
                         {{ item.days_delayed }}
                         {{ t("dashboard.inventoryShortages.days") }}
                       </span>
                     </TableCell>
-                    <TableCell class="cursor-pointer" @click="showBacklogDetail(item)">
+                    <TableCell
+                      class="cursor-pointer"
+                      @click="showBacklogDetail(item)"
+                    >
                       <Badge
-                        :variant="item.priority === 'high' || item.priority === 'High' ? 'destructive' : item.priority === 'medium' || item.priority === 'Medium' ? 'default' : 'secondary'"
+                        :variant="
+                          item.priority === 'high' || item.priority === 'High'
+                            ? 'destructive'
+                            : item.priority === 'medium' ||
+                                item.priority === 'Medium'
+                              ? 'default'
+                              : 'secondary'
+                        "
                       >
                         {{ translatePriority(item.priority) }}
                       </Badge>
@@ -457,13 +615,25 @@
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{{ t("dashboard.topProducts.product") }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.product")
+                  }}</TableHead>
                   <TableHead>{{ t("dashboard.topProducts.sku") }}</TableHead>
-                  <TableHead>{{ t("dashboard.topProducts.category") }}</TableHead>
-                  <TableHead>{{ t("dashboard.topProducts.unitsOrdered") }}</TableHead>
-                  <TableHead>{{ t("dashboard.topProducts.revenue") }}</TableHead>
-                  <TableHead>{{ t("dashboard.topProducts.firstOrder") }}</TableHead>
-                  <TableHead>{{ t("dashboard.topProducts.stockStatus") }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.category")
+                  }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.unitsOrdered")
+                  }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.revenue")
+                  }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.firstOrder")
+                  }}</TableHead>
+                  <TableHead>{{
+                    t("dashboard.topProducts.stockStatus")
+                  }}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -474,7 +644,9 @@
                   @click="showProductDetail(item)"
                 >
                   <TableCell>
-                    <span class="font-semibold">{{ translateProductName(item.name) }}</span>
+                    <span class="font-semibold">{{
+                      translateProductName(item.name)
+                    }}</span>
                   </TableCell>
                   <TableCell>{{ item.sku }}</TableCell>
                   <TableCell>{{ translateCategory(item.category) }}</TableCell>
@@ -487,8 +659,20 @@
                   <TableCell>{{ formatDate(item.firstOrderDate) }}</TableCell>
                   <TableCell>
                     <Badge
-                      :variant="getStockBadge(item.stockLevel) === 'success' ? 'default' : getStockBadge(item.stockLevel) === 'warning' ? 'secondary' : 'destructive'"
-                      :class="getStockBadge(item.stockLevel) === 'success' ? 'bg-emerald-500 hover:bg-emerald-500/80' : getStockBadge(item.stockLevel) === 'warning' ? 'bg-amber-500 text-white hover:bg-amber-500/80 border-transparent' : ''"
+                      :variant="
+                        getStockBadge(item.stockLevel) === 'success'
+                          ? 'default'
+                          : getStockBadge(item.stockLevel) === 'warning'
+                            ? 'secondary'
+                            : 'destructive'
+                      "
+                      :class="
+                        getStockBadge(item.stockLevel) === 'success'
+                          ? 'bg-emerald-500 hover:bg-emerald-500/80'
+                          : getStockBadge(item.stockLevel) === 'warning'
+                            ? 'bg-amber-500 text-white hover:bg-amber-500/80 border-transparent'
+                            : ''
+                      "
                     >
                       {{ translateStockLevel(item.stockLevel) }}
                     </Badge>
@@ -531,8 +715,21 @@ import { useI18n } from "../composables/useI18n";
 import { formatCurrency } from "../utils/currency";
 import ProductDetailModal from "../components/ProductDetailModal.vue";
 import BacklogDetailModal from "../components/BacklogDetailModal.vue";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
 const { t, currentCurrency, translateProductName, translateWarehouse } =
@@ -760,8 +957,7 @@ const topProducts = computed(() => {
         // (e.g., if filtering by warehouse A, don't show products from warehouse B)
         if (
           !invItem &&
-          (selectedLocation.value !== "all" ||
-            selectedCategory.value !== "all")
+          (selectedLocation.value !== "all" || selectedCategory.value !== "all")
         ) {
           return; // Skip this product as it doesn't match inventory filters
         }
@@ -817,10 +1013,7 @@ const allBacklogItems = ref([]);
 
 // Filter backlog based on inventory filters
 const backlogItems = computed(() => {
-  if (
-    selectedLocation.value === "all" &&
-    selectedCategory.value === "all"
-  ) {
+  if (selectedLocation.value === "all" && selectedCategory.value === "all") {
     return allBacklogItems.value;
   }
 
