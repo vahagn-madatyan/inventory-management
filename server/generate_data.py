@@ -1,29 +1,41 @@
 """
 Script to generate sample data spread across all months of 2025
+
+Pricing model:
+- inventory.json unit_cost = purchase/procurement cost
+- orders.json unit_price = sell price to customer (typically 1.5x-3x of unit_cost)
+- The 'price' field below is the SELL price used in orders
 """
 import json
 import random
 from datetime import datetime, timedelta
 
-# Product catalog
+# Product catalog - prices are SELL prices (customer-facing)
+# Purchase costs are defined in inventory.json as unit_cost
 products = [
-    {"sku": "WDG-001", "name": "Industrial Widget Type A", "category": "Widgets", "price": 24.99},
-    {"sku": "WDG-002", "name": "Industrial Widget Type B", "category": "Widgets", "price": 29.99},
-    {"sku": "WDG-003", "name": "Industrial Widget Type C", "category": "Widgets", "price": 34.50},
-    {"sku": "BRG-102", "name": "Steel Bearing Assembly", "category": "Components", "price": 89.50},
-    {"sku": "BRG-103", "name": "Ceramic Bearing Assembly", "category": "Components", "price": 125.00},
-    {"sku": "GSK-203", "name": "High-Temperature Gasket", "category": "Components", "price": 12.75},
-    {"sku": "GSK-204", "name": "Standard Gasket", "category": "Components", "price": 8.50},
-    {"sku": "GSK-205", "name": "Heavy Duty Gasket", "category": "Components", "price": 15.99},
-    {"sku": "MTR-304", "name": "Electric Motor 5HP", "category": "Equipment", "price": 445.00},
-    {"sku": "MTR-305", "name": "Electric Motor 10HP", "category": "Equipment", "price": 725.00},
-    {"sku": "MTR-306", "name": "Electric Motor 3HP", "category": "Equipment", "price": 325.00},
-    {"sku": "FLT-405", "name": "Oil Filter Cartridge", "category": "Consumables", "price": 8.25},
-    {"sku": "FLT-406", "name": "Air Filter Cartridge", "category": "Consumables", "price": 6.50},
-    {"sku": "FLT-407", "name": "Fuel Filter Cartridge", "category": "Consumables", "price": 7.75},
-    {"sku": "VLV-506", "name": "Pressure Relief Valve", "category": "Components", "price": 156.00},
-    {"sku": "VLV-507", "name": "Ball Valve", "category": "Components", "price": 95.00},
-    {"sku": "VLV-508", "name": "Gate Valve", "category": "Components", "price": 110.50},
+    {"sku": "PCB-001", "name": "Single Layer PCB Assembly", "category": "Circuit Boards", "price": 49.99},
+    {"sku": "PCB-002", "name": "Dual Layer PCB Assembly", "category": "Circuit Boards", "price": 59.99},
+    {"sku": "PCB-003", "name": "Multi Layer PCB Assembly", "category": "Circuit Boards", "price": 69.00},
+    {"sku": "TMP-201", "name": "Temperature Sensor Module", "category": "Sensors", "price": 179.00},
+    {"sku": "HMD-202", "name": "Humidity Sensor Module", "category": "Sensors", "price": 249.00},
+    {"sku": "PRS-203", "name": "Pressure Sensor Module", "category": "Sensors", "price": 25.50},
+    {"sku": "PRX-204", "name": "Proximity Sensor", "category": "Sensors", "price": 16.99},
+    {"sku": "ULS-205", "name": "Ultrasonic Distance Sensor", "category": "Sensors", "price": 31.99},
+    {"sku": "SRV-301", "name": "Micro Servo Motor", "category": "Actuators", "price": 890.00},
+    {"sku": "SRV-302", "name": "Standard Servo Motor", "category": "Actuators", "price": 1450.00},
+    {"sku": "STP-303", "name": "Stepper Motor NEMA 17", "category": "Actuators", "price": 649.00},
+    {"sku": "MCU-401", "name": "8-bit Microcontroller", "category": "Controllers", "price": 16.50},
+    {"sku": "MCU-402", "name": "32-bit ARM Microcontroller", "category": "Controllers", "price": 12.99},
+    {"sku": "DSP-403", "name": "Digital Signal Processor", "category": "Controllers", "price": 15.50},
+    {"sku": "WDG-001", "name": "Industrial Widget Type A", "category": "Mechanical Parts", "price": 24.99},
+    {"sku": "BRG-102", "name": "Steel Bearing Assembly", "category": "Mechanical Parts", "price": 57.50},
+    {"sku": "GSK-203", "name": "High-Temperature Gasket", "category": "Mechanical Parts", "price": 12.75},
+    {"sku": "MTR-304", "name": "Electric Motor 5HP", "category": "Actuators", "price": 445.00},
+    {"sku": "FLT-405", "name": "Oil Filter Cartridge", "category": "Mechanical Parts", "price": 8.25},
+    {"sku": "VLV-506", "name": "Pressure Relief Valve", "category": "Mechanical Parts", "price": 84.00},
+    {"sku": "PSU-501", "name": "5V 10A Switching Power Supply", "category": "Power Supplies", "price": 37.99},
+    {"sku": "PSU-502", "name": "12V 5A Power Supply Module", "category": "Power Supplies", "price": 44.99},
+    {"sku": "PSU-506", "name": "USB-C PD 100W Power Supply", "category": "Power Supplies", "price": 59.99},
 ]
 
 customers = [
@@ -39,7 +51,7 @@ customers = [
     "Summit Parts Corp", "Velocity Industries"
 ]
 
-warehouses = ["A", "B", "C"]
+warehouses = ["San Francisco", "London", "Tokyo"]
 statuses = ["Delivered", "Shipped", "Processing", "Backordered"]
 
 # Generate orders for each month of 2025

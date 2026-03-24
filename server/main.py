@@ -89,6 +89,8 @@ class DemandForecast(BaseModel):
     forecasted_demand: int
     trend: str
     period: str
+    lead_time_days: Optional[int] = None
+    supplier: Optional[str] = None
 
 class BacklogItem(BaseModel):
     id: str
@@ -103,7 +105,9 @@ class BacklogItem(BaseModel):
 
 class PurchaseOrder(BaseModel):
     id: str
-    backlog_item_id: str
+    backlog_item_id: Optional[str] = None
+    item_sku: Optional[str] = None
+    item_name: Optional[str] = None
     supplier_name: str
     quantity: int
     unit_cost: float
@@ -226,6 +230,103 @@ def get_category_spending():
 def get_recent_transactions():
     """Get recent transactions"""
     return recent_transactions
+
+@app.get("/api/purchase-orders")
+def get_purchase_orders():
+    """Get all purchase orders"""
+    return purchase_orders
+
+@app.get("/api/restock/recommendations")
+def get_restock_recommendations():
+    """Generate restock recommendations based on inventory levels, demand forecasts, backlog, and existing POs."""
+    recommendations = []
+
+    # Build lookup maps
+    forecast_by_sku = {f["item_sku"]: f for f in demand_forecasts}
+    po_by_sku = {}
+    for po in purchase_orders:
+        sku = po.get("item_sku")
+        if sku:
+            po_by_sku.setdefault(sku, []).append(po)
+
+    # Build backlog commitments by SKU
+    backlog_by_sku = {}
+    for bl in backlog_items:
+        sku = bl["item_sku"]
+        shortage = bl["quantity_needed"] - bl["quantity_available"]
+        backlog_by_sku[sku] = backlog_by_sku.get(sku, 0) + max(0, shortage)
+
+    for item in inventory_items:
+        sku = item["sku"]
+        qty = item["quantity_on_hand"]
+        reorder = item["reorder_point"]
+        forecast = forecast_by_sku.get(sku)
+        existing_pos = po_by_sku.get(sku, [])
+        pending_qty = sum(po["quantity"] for po in existing_pos if po["status"] in ("Pending", "Confirmed"))
+        backlog_shortage = backlog_by_sku.get(sku, 0)
+
+        # Effective available stock = on hand minus backlog commitments
+        effective_qty = max(0, qty - backlog_shortage)
+
+        # Determine if restock is needed
+        needs_restock = qty <= reorder or backlog_shortage > 0
+        forecasted_demand = forecast["forecasted_demand"] if forecast else None
+        lead_time = forecast["lead_time_days"] if forecast else None
+        supplier = forecast["supplier"] if forecast else None
+
+        # Calculate days of stock remaining based on forecast (using effective qty)
+        days_of_stock = None
+        if forecasted_demand and forecasted_demand > 0:
+            daily_demand = forecasted_demand / 30
+            days_of_stock = round(effective_qty / daily_demand, 1) if daily_demand > 0 else None
+
+        # Determine urgency
+        urgency = "none"
+        if needs_restock:
+            if lead_time and days_of_stock is not None and days_of_stock < lead_time:
+                urgency = "critical"
+            elif backlog_shortage > 0:
+                urgency = "critical"
+            else:
+                urgency = "high"
+        elif days_of_stock and lead_time and days_of_stock < lead_time * 1.5:
+            urgency = "medium"
+
+        # Calculate suggested order quantity
+        suggested_qty = 0
+        if needs_restock:
+            # Target: cover backlog + reach 2x reorder point
+            target = max(reorder * 2, qty + backlog_shortage)
+            suggested_qty = max(0, target - qty - pending_qty + backlog_shortage)
+        elif urgency == "medium" and forecasted_demand:
+            suggested_qty = max(0, forecasted_demand - effective_qty - pending_qty)
+
+        if urgency == "none" and suggested_qty == 0:
+            continue
+
+        recommendations.append({
+            "sku": sku,
+            "name": item["name"],
+            "category": item["category"],
+            "warehouse": item["warehouse"],
+            "quantity_on_hand": qty,
+            "reorder_point": reorder,
+            "backlog_shortage": backlog_shortage,
+            "effective_available": effective_qty,
+            "forecasted_demand": forecasted_demand,
+            "days_of_stock": days_of_stock,
+            "lead_time_days": lead_time,
+            "supplier": supplier,
+            "pending_po_quantity": pending_qty,
+            "suggested_order_quantity": suggested_qty,
+            "estimated_cost": round(suggested_qty * item["unit_cost"], 2),
+            "urgency": urgency
+        })
+
+    # Sort by urgency: critical > high > medium
+    urgency_order = {"critical": 0, "high": 1, "medium": 2}
+    recommendations.sort(key=lambda r: urgency_order.get(r["urgency"], 3))
+    return recommendations
 
 @app.get("/api/reports/quarterly")
 def get_quarterly_reports():

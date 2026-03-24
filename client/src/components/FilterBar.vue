@@ -40,6 +40,7 @@
             <option value="actuators">{{ t('categories.actuators') }}</option>
             <option value="controllers">{{ t('categories.controllers') }}</option>
             <option value="power supplies">{{ t('categories.powerSupplies') }}</option>
+            <option value="mechanical parts">{{ t('categories.mechanicalParts') }}</option>
           </select>
         </div>
 

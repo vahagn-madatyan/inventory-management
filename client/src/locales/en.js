@@ -229,7 +229,8 @@ export default {
     sensors: 'Sensors',
     actuators: 'Actuators',
     controllers: 'Controllers',
-    powerSupplies: 'Power Supplies'
+    powerSupplies: 'Power Supplies',
+    mechanicalParts: 'Mechanical Parts'
   },
 
   // Spending Categories

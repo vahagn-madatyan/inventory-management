@@ -229,7 +229,8 @@ export default {
     sensors: 'センサー',
     actuators: 'アクチュエータ',
     controllers: 'コントローラー',
-    powerSupplies: '電源'
+    powerSupplies: '電源',
+    mechanicalParts: '機械部品'
   },
 
   // Spending Categories
@@ -359,7 +360,15 @@ export default {
     '48V DC Power Supply Unit': '48V DC電源ユニット',
     'USB-C PD 100W Power Supply': 'USB-C PD 100W電源',
     'Battery Backup Power Supply': 'バッテリバックアップ電源',
-    'Adjustable Bench Power Supply': '可変ベンチ電源'
+    'Adjustable Bench Power Supply': '可変ベンチ電源',
+    'Industrial Widget Type A': '産業用ウィジェットタイプA',
+    'Steel Bearing Assembly': 'スチールベアリング組立',
+    'High-Temperature Gasket': '高温ガスケット',
+    'Electric Motor 5HP': '電動モーター5HP',
+    'Oil Filter Cartridge': 'オイルフィルターカートリッジ',
+    'Pressure Relief Valve': '圧力逃がし弁',
+    'Industrial Temperature Sensor': '産業用温度センサー',
+    'Logic Controller Board': 'ロジックコントローラボード'
   },
 
   // Customer Names
