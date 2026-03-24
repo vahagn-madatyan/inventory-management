@@ -8,7 +8,8 @@
     "trend": "increasing",
     "period": "Next 30 days",
     "lead_time_days": 14,
-    "supplier": "Pacific Industrial Supply"
+    "supplier": "Pacific Industrial Supply",
+    "unit_cost": 24.99
   },
   {
     "id": "2",
@@ -19,7 +20,8 @@
     "trend": "stable",
     "period": "Next 30 days",
     "lead_time_days": 7,
-    "supplier": "Precision Bearings Co."
+    "supplier": "Precision Bearings Co.",
+    "unit_cost": 89.50
   },
   {
     "id": "3",
@@ -30,7 +32,8 @@
     "trend": "increasing",
     "period": "Next 30 days",
     "lead_time_days": 10,
-    "supplier": "ThermalSeal Ltd."
+    "supplier": "ThermalSeal Ltd.",
+    "unit_cost": 12.75
   },
   {
     "id": "4",
@@ -41,7 +44,8 @@
     "trend": "decreasing",
     "period": "Next 30 days",
     "lead_time_days": 21,
-    "supplier": "GlobalMotors Inc."
+    "supplier": "GlobalMotors Inc.",
+    "unit_cost": 445.00
   },
   {
     "id": "5",
@@ -52,7 +56,8 @@
     "trend": "increasing",
     "period": "Next 30 days",
     "lead_time_days": 5,
-    "supplier": "FilterPro Manufacturing"
+    "supplier": "FilterPro Manufacturing",
+    "unit_cost": 8.25
   },
   {
     "id": "6",
@@ -63,7 +68,8 @@
     "trend": "stable",
     "period": "Next 30 days",
     "lead_time_days": 12,
-    "supplier": "ValveTech Industries"
+    "supplier": "ValveTech Industries",
+    "unit_cost": 156.00
   },
   {
     "id": "7",
@@ -74,7 +80,8 @@
     "trend": "stable",
     "period": "Next 30 days",
     "lead_time_days": 8,
-    "supplier": "PowerCore Electronics"
+    "supplier": "PowerCore Electronics",
+    "unit_cost": 18.99
   },
   {
     "id": "8",
@@ -85,7 +92,8 @@
     "trend": "stable",
     "period": "Next 30 days",
     "lead_time_days": 6,
-    "supplier": "SensorWorks Global"
+    "supplier": "SensorWorks Global",
+    "unit_cost": 89.50
   },
   {
     "id": "9",
@@ -96,6 +104,7 @@
     "trend": "stable",
     "period": "Next 30 days",
     "lead_time_days": 15,
-    "supplier": "MicroLogic Systems"
+    "supplier": "MicroLogic Systems",
+    "unit_cost": 32.75
   }
 ]
